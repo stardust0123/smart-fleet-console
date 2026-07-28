@@ -1,0 +1,40 @@
+import Logo from "./Logo";
+import LoginForm from "./LoginForm";
+import DemoAccordion from "./DemoAccordion";
+
+
+export default function LoginSection() {
+  return (
+    <section
+      className="
+        flex
+        h-full
+        items-center
+        justify-center
+        px-14
+      "
+    >
+      <div className="w-full max-w-md">
+
+        <Logo />
+
+        <div className="mt-16">
+
+          <h1 className="text-5xl font-bold text-slate-900">
+            Welcome back
+          </h1>
+
+          <p className="mt-5 leading-8 text-slate-500">
+            Sign in with your company account to access
+            your fleet operations dashboard.
+          </p>
+
+          <LoginForm />
+          <DemoAccordion />
+
+        </div>
+
+      </div>
+    </section>
+  );
+}
