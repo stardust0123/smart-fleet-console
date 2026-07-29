@@ -2,123 +2,126 @@
 
 import { Eye, EyeOff } from "lucide-react";
 import { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
+  const router = useRouter();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const [showPassword, setShowPassword] = useState(false);
+
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const [error, setError] = useState("");
+
+  async function handleSubmit(
+    e: FormEvent<HTMLFormElement>
+  ) {
     e.preventDefault();
 
     setLoading(true);
+    setError("");
 
-    // TODO:
-    // Replace with NextAuth/Auth.js/Backend API
+    try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
 
-    await new Promise((resolve) => setTimeout(resolve, 1200));
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.message);
+        setLoading(false);
+        return;
+      }
+
+      switch (data.user.role) {
+        case "OWNER":
+          router.push("/owner");
+          break;
+
+        case "MANAGER":
+          router.push("/manager");
+          break;
+
+        case "MECHANIC":
+          router.push("/mechanic");
+          break;
+
+        case "SAFETY":
+          router.push("/safety");
+          break;
+
+        case "DRIVER":
+          router.push("/driver");
+          break;
+
+        default:
+          router.push("/");
+      }
+    } catch {
+      setError("Something went wrong.");
+    }
 
     setLoading(false);
-  };
+  }
 
   return (
     <form
       onSubmit={handleSubmit}
       className="mt-12 space-y-8"
     >
-      {/* Email */}
-
       <div>
-        <label
-          htmlFor="email"
-          className="text-sm font-semibold text-slate-800"
-        >
+        <label className="text-sm font-semibold">
           Company Email
         </label>
 
         <input
-          id="email"
           type="email"
-          placeholder="john@smartfleet.com"
-          autoComplete="email"
-          className="
-            mt-3
-            w-full
-
-            border-0
-            border-b-2
-            border-slate-200
-
-            bg-transparent
-
-            py-3
-
-            text-slate-900
-            placeholder:text-slate-400
-
-            outline-none
-
-            transition-all
-            duration-200
-
-            focus:border-blue-600
-          "
+          value={email}
+          onChange={(e) =>
+            setEmail(e.target.value)
+          }
+          placeholder="owner@smartfleet.com"
+          className="mt-3 w-full border-b-2 border-slate-200 bg-transparent py-3 outline-none focus:border-blue-600"
         />
       </div>
 
-      {/* Password */}
-
       <div>
-        <label
-          htmlFor="password"
-          className="text-sm font-semibold text-slate-800"
-        >
+        <label className="text-sm font-semibold">
           Password
         </label>
 
         <div className="relative mt-3">
           <input
-            id="password"
-            type={showPassword ? "text" : "password"}
-            placeholder="••••••••"
-            autoComplete="current-password"
-            className="
-              w-full
-
-              border-0
-              border-b-2
-              border-slate-200
-
-              bg-transparent
-
-              py-3
-              pr-10
-
-              text-slate-900
-
-              outline-none
-
-              transition-all
-              duration-200
-
-              focus:border-blue-600
-            "
+            type={
+              showPassword ? "text" : "password"
+            }
+            value={password}
+            onChange={(e) =>
+              setPassword(e.target.value)
+            }
+            placeholder="********"
+            className="w-full border-b-2 border-slate-200 bg-transparent py-3 pr-10 outline-none focus:border-blue-600"
           />
 
           <button
             type="button"
-            onClick={() => setShowPassword((prev) => !prev)}
-            className="
-              absolute
-              right-0
-              top-1/2
-              -translate-y-1/2
-
-              text-slate-400
-
-              transition
-
-              hover:text-slate-700
-            "
+            onClick={() =>
+              setShowPassword(!showPassword)
+            }
+            className="absolute right-0 top-1/2 -translate-y-1/2"
           >
             {showPassword ? (
               <EyeOff size={18} />
@@ -129,72 +132,20 @@ export default function LoginForm() {
         </div>
       </div>
 
-      {/* Options */}
-
-      <div className="flex items-center justify-between">
-        <label className="flex items-center gap-2 text-sm text-slate-600">
-          <input
-            type="checkbox"
-            className="
-              h-4
-              w-4
-
-              rounded
-
-              border-slate-300
-
-              accent-blue-600
-            "
-          />
-
-          Remember me
-        </label>
-
-        <button
-          type="button"
-          className="
-            text-sm
-            font-medium
-            text-blue-600
-
-            transition
-
-            hover:text-blue-700
-          "
-        >
-          Forgot password?
-        </button>
-      </div>
-
-      {/* Button */}
+      {error && (
+        <p className="text-sm text-red-500">
+          {error}
+        </p>
+      )}
 
       <button
         type="submit"
         disabled={loading}
-        className="
-          flex
-          h-12
-          w-full
-          items-center
-          justify-center
-
-          rounded-xl
-
-          bg-blue-600
-
-          font-semibold
-          text-white
-
-          transition-all
-          duration-200
-
-          hover:bg-blue-700
-
-          disabled:cursor-not-allowed
-          disabled:opacity-70
-        "
+        className="h-12 w-full rounded-xl bg-blue-600 font-semibold text-white transition hover:bg-blue-700 disabled:opacity-60"
       >
-        {loading ? "Signing In..." : "Sign In"}
+        {loading
+          ? "Signing In..."
+          : "Sign In"}
       </button>
     </form>
   );

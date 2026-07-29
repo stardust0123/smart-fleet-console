@@ -1,7 +1,5 @@
 import Logo from "./Logo";
 import LoginForm from "./LoginForm";
-import DemoAccordion from "./DemoAccordion";
-
 
 export default function LoginSection() {
   return (
@@ -28,10 +26,7 @@ export default function LoginSection() {
             Sign in with your company account to access
             your fleet operations dashboard.
           </p>
-
           <LoginForm />
-          <DemoAccordion />
-
         </div>
 
       </div>
