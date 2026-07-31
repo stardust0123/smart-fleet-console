@@ -4,7 +4,6 @@ export function middleware(request: NextRequest) {
   const token = request.cookies.get("token");
 
   const protectedRoutes = [
-    "/owner",
     "/manager",
     "/driver",
     "/mechanic",
@@ -24,7 +23,6 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/owner/:path*",
     "/manager/:path*",
     "/driver/:path*",
     "/mechanic/:path*",

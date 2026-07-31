@@ -93,7 +93,7 @@ export default function LoginForm() {
           onChange={(e) =>
             setEmail(e.target.value)
           }
-          placeholder="owner@smartfleet.com"
+          placeholder="role@smartfleet.com"
           className="mt-3 w-full border-b-2 border-slate-200 bg-transparent py-3 outline-none focus:border-blue-600"
         />
       </div>
