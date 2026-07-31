@@ -1,12 +1,16 @@
 import DashboardCard from "./DashboardCard";
-import { ArrowUpRight, ArrowDownRight, LucideIcon } from "lucide-react";
+import {
+  ArrowUpRight,
+  ArrowDownRight,
+  LucideIcon,
+} from "lucide-react";
 
 interface StatCardProps {
   title: string;
-  value: string;
-  change: string;
-  positive?: boolean;
+  value: string | number;
   icon: LucideIcon;
+  change?: string;
+  positive?: boolean;
 }
 
 export default function StatCard({
@@ -23,21 +27,23 @@ export default function StatCard({
           <Icon className="h-6 w-6 text-blue-600" />
         </div>
 
-        <div
-          className={`flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium ${
-            positive
-              ? "bg-green-50 text-green-600"
-              : "bg-red-50 text-red-600"
-          }`}
-        >
-          {positive ? (
-            <ArrowUpRight className="h-3 w-3" />
-          ) : (
-            <ArrowDownRight className="h-3 w-3" />
-          )}
+        {change && (
+          <div
+            className={`flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium ${
+              positive
+                ? "bg-green-50 text-green-600"
+                : "bg-red-50 text-red-600"
+            }`}
+          >
+            {positive ? (
+              <ArrowUpRight className="h-3 w-3" />
+            ) : (
+              <ArrowDownRight className="h-3 w-3" />
+            )}
 
-          {change}
-        </div>
+            {change}
+          </div>
+        )}
       </div>
 
       <div className="mt-6">

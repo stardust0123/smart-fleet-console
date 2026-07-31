@@ -1,68 +1,78 @@
 import {
   Truck,
-  Route,
   Users,
   Wrench,
+  TriangleAlert,
 } from "lucide-react";
 
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import DashboardGrid from "@/components/dashboard/DashboardGrid";
 import StatCard from "@/components/dashboard/StatCard";
-import ChartPlaceholder from "@/components/dashboard/ChartPlaceholer";
-import ActivityTable from "@/components/dashboard/ActivityTable";
 
-export default function OwnerDashboard() {
+import WorkshopWorkloadChart from "@/components/charts/WorkshopWorkloadChart";
+import TopVehiclesAlertChart from "@/components/charts/TopVehiclesAlertChart";
+import PredictiveAlertTreemap from "@/components/charts/PredictiveAlertTreemap";
+import UrgentRepairTable from "@/components/tables/UrgentRepairTable";
+
+import { loadManagerDashboard } from "@/services/dashboard/manager";
+
+export default async function ManagerDashboard() {
+  const {
+  stats,
+  workload,
+  topVehicles,
+  alertTypes,
+  urgentRepairs,
+} = await loadManagerDashboard();
   return (
     <>
       <DashboardHeader
         title="Manager Dashboard"
-        description="Overview of your fleet operations."
+        description="Overview of workshop operations."
       />
 
       <DashboardGrid>
         <StatCard
           title="Total Vehicles"
-          value="128"
-          change="+5.2%"
+          value={stats.totalVehicles.toString()}
           icon={Truck}
         />
 
         <StatCard
-          title="Active Trips"
-          value="94"
-          change="+2.8%"
-          icon={Route}
-        />
-
-        <StatCard
-          title="Drivers"
-          value="203"
-          change="+1.4%"
-          icon={Users}
-        />
-
-        <StatCard
-          title="Maintenance Due"
-          value="18"
-          change="-3.1%"
-          positive={false}
+          title="Open Jobs"
+          value={stats.openJobs.toString()}
           icon={Wrench}
+        />
+
+        <StatCard
+          title="Predictive Alerts"
+          value={stats.predictiveAlerts.toString()}
+          icon={TriangleAlert}
+        />
+
+        <StatCard
+          title="Mechanics Available"
+          value={stats.mechanicsAvailable.toString()}
+          icon={Users}
         />
       </DashboardGrid>
 
       <DashboardGrid cols={2}>
-        <ChartPlaceholder
-          title="Fleet Status"
-          subtitle="Vehicle activity this year"
+        <WorkshopWorkloadChart
+            data={workload}
+          />
+        <TopVehiclesAlertChart
+          data={topVehicles}
+        />
+        <PredictiveAlertTreemap
+          data={alertTypes}
+        />
+        <UrgentRepairTable
+          data={urgentRepairs}
         />
 
-        <ChartPlaceholder
-          title="Trip Distribution"
-          subtitle="Trips completed each month"
-        />
       </DashboardGrid>
 
-      <ActivityTable />
     </>
   );
 }
