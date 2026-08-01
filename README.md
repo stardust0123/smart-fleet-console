@@ -1,5 +1,6 @@
 # Smart Fleet Console
 
+Do **not** merge directly into the main branch.
 > Dashboard & Explorer Development Guide
 
 This document explains the project architecture, coding conventions, and development workflow for all team members.
@@ -320,7 +321,7 @@ components/tables/Safety*.tsx
 
 These files affect the whole project.
 
-Do NOT modify them without discussing with the project owner.
+Do NOT modify them.
 
 ```
 components/dashboard/
@@ -422,7 +423,7 @@ Table
 
 ⚠️ Do NOT merge directly into the repository.
 
-Instead, send all modified files to the project owner.
+Instead, send all modified files.
 
 Example
 
@@ -473,4 +474,3 @@ Only include files that were modified.
 
 - Pushing the final version to GitHub.
 
-Team members should **not** merge directly into the main branch.
