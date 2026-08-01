@@ -1,5 +1,4 @@
 export type UserRole =
-  | "OWNER"
   | "MANAGER"
   | "MECHANIC"
   | "SAFETY"
