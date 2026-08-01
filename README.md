@@ -41,7 +41,7 @@ DB_NAME=
 JWT_SECRET=
 ```
 
-Ask the project owner for the database credentials.
+Database credentials are shared internally.
 
 ---
 
