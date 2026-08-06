@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-
+import SafetyReviewModal from "./SafetyReviewModal";
+import SafetyViewModal from "./SafetyViewModal";
 import SafetyReviewFilters from "./SafetyReviewFilters";
 import SafetyReviewTable from "./SafetyReviewTable";
 
@@ -9,16 +10,32 @@ import {
   IncidentReview,
   SafetyIncidentFilters,
   SafetyScore,
+  DriverOption,
+  DepotOption,
+  EventOption,
 } from "@/types/safety";
 
 interface Props {
   incidentReviews: IncidentReview[];
+
   safetyScores: SafetyScore[];
+
+  drivers: DriverOption[];
+
+  depots: DepotOption[];
+
+  events: EventOption[];
 }
+
+
 
 export default function SafetyExplorer({
   incidentReviews,
   safetyScores,
+
+  drivers,
+  depots,
+  events,
 }: Props) {
 
   const [activeTab, setActiveTab] =
@@ -29,58 +46,77 @@ export default function SafetyExplorer({
 
   const [loading, setLoading] =
     useState(false);
+const [currentFilters, setCurrentFilters] =
+  useState<SafetyIncidentFilters>({});
 
-  const [selectedReview, setSelectedReview] =
+const [selectedReview, setSelectedReview] =
   useState<IncidentReview | null>(null);
 
 const [openReviewModal, setOpenReviewModal] =
   useState(false);
 
-function handleReview(review: IncidentReview) {
+const [openViewModal, setOpenViewModal] =
+  useState(false);
+
+
+function handleAction(
+  review: IncidentReview
+) {
   setSelectedReview(review);
-  setOpenReviewModal(true);
+
+  if (
+    review.review_status ===
+    "Completed"
+  ) {
+    setOpenViewModal(true);
+  } else {
+    setOpenReviewModal(true);
+  }
 }
 
   async function handleSearch(
-    filters: SafetyIncidentFilters
-  ) {
+  filters: SafetyIncidentFilters
+) {
+  setCurrentFilters(filters);
 
-    setLoading(true);
+  setLoading(true);
 
-    try {
+  try {
+    const response = await fetch(
+      "/api/explorer/safety/search",
+      {
+        method: "POST",
 
-      const response = await fetch(
-        "/api/explorer/safety/search",
-        {
-          method: "POST",
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
 
-          headers: {
-            "Content-Type":
-              "application/json",
-          },
+        body: JSON.stringify(filters),
+      }
+    );
 
-          body: JSON.stringify(filters),
-        }
-      );
+    const data =
+      await response.json();
 
-      const data =
-        await response.json();
+    setReviews(data);
 
-      setReviews(data);
+  } catch (error) {
 
-    } catch (error) {
+    console.error(error);
 
-      console.error(error);
+    alert("Search failed.");
 
-      alert("Search failed.");
+  } finally {
 
-    } finally {
-
-      setLoading(false);
-
-    }
+    setLoading(false);
 
   }
+}
+
+async function reloadReviews() {
+  await handleSearch(currentFilters);
+}
 
   return (
 
@@ -139,6 +175,9 @@ function handleReview(review: IncidentReview) {
             <div className="mt-6">
 
               <SafetyReviewFilters
+              drivers={drivers}
+                depots={depots}
+                events={events}
                 onSearch={handleSearch}
               />
 
@@ -158,7 +197,7 @@ function handleReview(review: IncidentReview) {
 
                 <SafetyReviewTable
                   data={reviews}
-                  onReview={handleReview}
+                  onReview={handleAction}
 
                 />
 
@@ -202,8 +241,29 @@ function handleReview(review: IncidentReview) {
         )}
 
       </div>
+      <>
+
+        <SafetyReviewModal
+          open={openReviewModal}
+          review={selectedReview}
+          onClose={() =>
+            setOpenReviewModal(false)
+          }
+          onSaved={reloadReviews}
+        />
+
+        <SafetyViewModal
+          open={openViewModal}
+          review={selectedReview}
+          onClose={() =>
+            setOpenViewModal(false)
+          }
+        />
+
+</>
 
     </div>
+    
 
   );
 

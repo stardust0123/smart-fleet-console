@@ -1,6 +1,8 @@
 "use client";
 
 import { IncidentReview } from "@/types/safety";
+import RiskBadge from "./RiskBadge";
+import StatusBadge from "./StatusBadge";
 
 interface Props {
   data: IncidentReview[];
@@ -97,23 +99,13 @@ export default function SafetyReviewTable({
                 </td>
 
                 <td className="px-4 py-3">
-                  <span className="rounded-full bg-red-100 px-2 py-1 text-xs font-medium text-red-700">
-                    {review.severity_code}
-                  </span>
+                    <RiskBadge
+                        severity={review.severity_code}
+                    />
                 </td>
 
                 <td className="px-4 py-3">
-                  <span
-                    className={`rounded-full px-2 py-1 text-xs font-medium ${
-                      review.review_status === "Completed"
-                        ? "bg-green-100 text-green-700"
-                        : review.review_status === "In Progress"
-                        ? "bg-blue-100 text-blue-700"
-                        : "bg-yellow-100 text-yellow-700"
-                    }`}
-                  >
-                    {review.review_status}
-                  </span>
+                  <StatusBadge status={review.review_status} />
                 </td>
 
                 <td className="px-4 py-3">

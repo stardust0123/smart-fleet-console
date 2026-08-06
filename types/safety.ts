@@ -67,3 +67,19 @@ export interface SafetyScoreFilters {
 
   maximumScore?: number;
 }
+
+export interface DriverOption {
+  driver_id: string;
+  full_name: string;
+}
+
+export interface DepotOption {
+  depot_code: string;
+  depot_name: string;
+}
+
+export interface EventOption {
+  event_code: string;
+  event_name: string;
+}
+

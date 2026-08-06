@@ -1,100 +1,182 @@
 import pool from "@/lib/db";
-import { SafetyIncidentFilters } from "@/types/safety";
+import { RowDataPacket } from "mysql2";
+
+import {
+  IncidentReview,
+  SafetyScore,
+  DriverOption,
+  DepotOption,
+  EventOption,
+  SafetyIncidentFilters,
+} from "@/types/safety";
+
+/* =======================================================
+   INCIDENT REVIEWS
+======================================================= */
 
 export async function getIncidentReviews() {
-  const [rows] = await pool.query(`
-    SELECT
 
-      er.review_id,
+  const [rows] =
+    await pool.query<(IncidentReview & RowDataPacket)[]>(`
+      SELECT
 
-      sel.event_id,
+        er.review_id,
 
-      d.driver_id,
-      d.full_name,
+        sel.event_id,
 
-      v.vehicle_id,
-      v.register_number,
+        d.driver_id,
+        d.full_name,
 
-      dp.depot_code,
-      dp.depot_name,
+        v.vehicle_id,
+        v.register_number,
 
-      st.event_name,
+        dp.depot_code,
+        dp.depot_name,
 
-      sel.severity_code,
+        st.event_code,
+        st.event_name,
 
-      sel.event_timestamp,
+        sel.severity_code,
 
-      er.review_status,
-      er.review_date,
+        sel.event_timestamp,
 
-      er.decision,
-      er.comments
+        er.review_status,
+        er.review_date,
 
-    FROM event_review er
+        er.decision,
+        er.comments
 
-    INNER JOIN safety_event_log sel
-      ON er.event_id = sel.event_id
+      FROM event_review er
 
-    INNER JOIN driver d
-      ON sel.driver_id = d.driver_id
+      INNER JOIN safety_event_log sel
+        ON er.event_id = sel.event_id
 
-    INNER JOIN vehicle v
-      ON sel.vehicle_id = v.vehicle_id
+      INNER JOIN driver d
+        ON sel.driver_id = d.driver_id
 
-    INNER JOIN depot dp
-      ON sel.depot_code = dp.depot_code
+      INNER JOIN vehicle v
+        ON sel.vehicle_id = v.vehicle_id
 
-    INNER JOIN safety_event_type st
-      ON sel.event_code = st.event_code
+      INNER JOIN depot dp
+        ON sel.depot_code = dp.depot_code
 
-    ORDER BY
-      sel.event_timestamp DESC;
-  `);
+      INNER JOIN safety_event_type st
+        ON sel.event_code = st.event_code
+
+      ORDER BY
+        sel.event_timestamp DESC
+    `);
 
   return rows;
 }
+
+/* =======================================================
+   SAFETY SCORE
+======================================================= */
 
 export async function getHighRiskDriversByMonth(
   month: string
 ) {
-  const [rows] = await pool.query(
-    `
-    SELECT
 
-      ss.score_id,
+  const [rows] =
+    await pool.query<(SafetyScore & RowDataPacket)[]>(
+      `
+      SELECT
 
-      d.driver_id,
-      d.full_name,
+        ss.score_id,
 
-      ss.score_month,
+        d.driver_id,
+        d.full_name,
 
-      ss.safety_score,
+        ss.score_month,
 
-      ss.calculated_at,
+        ss.safety_score,
 
-      ss.comments
+        ss.calculated_at,
 
-    FROM safety_score ss
+        ss.comments
 
-    INNER JOIN driver d
-      ON ss.driver_id = d.driver_id
+      FROM safety_score ss
 
-    WHERE
-      DATE_FORMAT(ss.score_month,'%Y-%m') = ?
+      INNER JOIN driver d
+        ON ss.driver_id = d.driver_id
 
-    ORDER BY
-      ss.safety_score ASC,
-      d.driver_id;
-    `,
-    [month]
-  );
+      WHERE
+        DATE_FORMAT(ss.score_month,'%Y-%m') = ?
+
+      ORDER BY
+        ss.safety_score ASC,
+        d.driver_id
+      `,
+      [month]
+    );
 
   return rows;
 }
 
+/* =======================================================
+   FILTER DROPDOWNS
+======================================================= */
+
+export async function getDrivers() {
+
+  const [rows] =
+    await pool.query<(DriverOption & RowDataPacket)[]>(`
+      SELECT
+        driver_id,
+        full_name
+      FROM driver
+      ORDER BY full_name
+    `);
+
+  return rows;
+
+}
+
+export async function getDepots() {
+
+  const [rows] =
+    await pool.query<(DepotOption & RowDataPacket)[]>(`
+      SELECT
+
+        depot_code,
+
+        depot_name
+
+      FROM depot
+
+      ORDER BY depot_name
+    `);
+
+  return rows;
+}
+
+export async function getSafetyEvents() {
+
+  const [rows] =
+    await pool.query<(EventOption & RowDataPacket)[]>(`
+      SELECT
+
+        event_code,
+
+        event_name
+
+      FROM safety_event_type
+
+      ORDER BY event_name
+    `);
+
+  return rows;
+}
+
+/* =======================================================
+   SEARCH INCIDENTS
+======================================================= */
+
 export async function searchSafetyIncidents(
   filters: SafetyIncidentFilters
 ) {
+
   let sql = `
     SELECT
 
@@ -111,6 +193,7 @@ export async function searchSafetyIncidents(
       dp.depot_code,
       dp.depot_name,
 
+      st.event_code,
       st.event_name,
 
       sel.severity_code,
@@ -146,13 +229,18 @@ export async function searchSafetyIncidents(
   const params: any[] = [];
 
   if (filters.driverId) {
-    sql += " AND sel.driver_id = ?";
+    sql += `
+      AND (
+        d.driver_id = ?
+        OR d.full_name LIKE ?
+      )`;
     params.push(filters.driverId);
+    params.push(`%${filters.driverId}%`);
   }
 
   if (filters.vehicleId) {
-    sql += " AND sel.vehicle_id = ?";
-    params.push(filters.vehicleId);
+    sql += " AND v.register_number LIKE ?";
+    params.push(`%${filters.vehicleId}%`);
   }
 
   if (filters.depotCode) {
@@ -187,64 +275,96 @@ export async function searchSafetyIncidents(
 
   sql += `
     ORDER BY
-      sel.event_timestamp DESC;
+      sel.event_timestamp DESC
   `;
 
-  const [rows] = await pool.query(sql, params);
+  const [rows] =
+    await pool.query<(IncidentReview & RowDataPacket)[]>(
+      sql,
+      params
+    );
 
   return rows;
 }
+
+/* =======================================================
+   UNRESOLVED INCIDENTS
+======================================================= */
 
 export async function getUnresolvedIncidentReviews() {
-  const [rows] = await pool.query(`
-    SELECT
 
-      er.review_id,
+  const [rows] =
+    await pool.query<(IncidentReview & RowDataPacket)[]>(`
+      SELECT
 
-      d.driver_id,
-      d.full_name,
+        er.review_id,
 
-      st.event_name,
+        sel.event_id,
 
-      sel.severity_code,
+        d.driver_id,
+        d.full_name,
 
-      sel.event_timestamp,
+        v.vehicle_id,
+        v.register_number,
 
-      er.review_status,
+        dp.depot_code,
+        dp.depot_name,
 
-      er.review_date,
+        st.event_code,
+        st.event_name,
 
-      er.comments
+        sel.severity_code,
 
-    FROM event_review er
+        sel.event_timestamp,
 
-    INNER JOIN safety_event_log sel
-      ON er.event_id = sel.event_id
+        er.review_status,
 
-    INNER JOIN driver d
-      ON sel.driver_id = d.driver_id
+        er.review_date,
 
-    INNER JOIN safety_event_type st
-      ON sel.event_code = st.event_code
+        er.decision,
 
-    WHERE
-      er.review_status IN (
-        'Pending',
-        'In Progress'
-      )
+        er.comments
 
-    ORDER BY
-      sel.event_timestamp ASC;
-  `);
+      FROM event_review er
+
+      INNER JOIN safety_event_log sel
+        ON er.event_id = sel.event_id
+
+      INNER JOIN driver d
+        ON sel.driver_id = d.driver_id
+
+      INNER JOIN vehicle v
+        ON sel.vehicle_id = v.vehicle_id
+
+      INNER JOIN depot dp
+        ON sel.depot_code = dp.depot_code
+
+      INNER JOIN safety_event_type st
+        ON sel.event_code = st.event_code
+
+      WHERE
+        er.review_status IN (
+          'Pending',
+          'In Progress'
+        )
+
+      ORDER BY
+        sel.event_timestamp ASC
+    `);
 
   return rows;
 }
+
+/* =======================================================
+   UPDATE REVIEW
+======================================================= */
 
 export async function updateIncidentReview(
   reviewId: number,
   decision: string,
   comments: string
 ) {
+
   await pool.query(
     `
     UPDATE event_review
@@ -268,4 +388,5 @@ export async function updateIncidentReview(
       reviewId,
     ]
   );
+
 }

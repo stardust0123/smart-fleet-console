@@ -4,6 +4,9 @@ import {
   searchSafetyIncidents,
   getUnresolvedIncidentReviews,
   updateIncidentReview,
+  getDrivers,
+  getDepots,
+  getSafetyEvents,
 } from "@/repositories/explorer/safety";
 
 import {
@@ -11,66 +14,119 @@ import {
   SafetyScoreFilters,
 } from "@/types/safety";
 
-/* ------------------------------- */
-/* Initial Explorer Load           */
-/* ------------------------------- */
+/* =======================================================
+   INITIAL LOAD
+======================================================= */
 
 export async function loadSafetyExplorer() {
+
   const [
+
     incidentReviews,
+
     safetyScores,
+
+    drivers,
+
+    depots,
+
+    events,
+
   ] = await Promise.all([
+
     getIncidentReviews(),
 
-    // default month
+    // Default month
     getHighRiskDriversByMonth("2026-02"),
+
+    getDrivers(),
+
+    getDepots(),
+
+    getSafetyEvents(),
+
   ]);
 
   return {
+
     incidentReviews,
+
     safetyScores,
+
+    drivers,
+
+    depots,
+
+    events,
+
   };
+
 }
 
-/* ------------------------------- */
-/* Incident Review Search          */
-/* ------------------------------- */
+/* =======================================================
+   INCIDENT REVIEW SEARCH
+======================================================= */
 
 export async function searchExplorer(
   filters: SafetyIncidentFilters
 ) {
-  return await searchSafetyIncidents(filters);
+
+  return await searchSafetyIncidents(
+    filters
+  );
+
 }
 
-/* ------------------------------- */
-/* Safety Score Search             */
-/* ------------------------------- */
+/* =======================================================
+   SAFETY SCORE SEARCH
+======================================================= */
 
 export async function searchSafetyScores(
   filters: SafetyScoreFilters
 ) {
+
   return await getHighRiskDriversByMonth(
-    filters.scoreMonth ?? "2026-02"
+
+    filters.scoreMonth ??
+
+    "2026-02"
+
   );
+
 }
 
-/* ------------------------------- */
-/* Pending Reviews                 */
-/* ------------------------------- */
+/* =======================================================
+   UNRESOLVED REVIEWS
+======================================================= */
 
 export async function loadUnresolvedReviews() {
+
   return await getUnresolvedIncidentReviews();
+
 }
+
+/* =======================================================
+   SAVE INCIDENT REVIEW
+======================================================= */
 
 export async function saveIncidentReview(
-  reviewId: number,
-  decision: string,
-  comments: string
-) {
-  await updateIncidentReview(
-    reviewId,
-    decision,
-    comments
-  );
-}
 
+  reviewId: number,
+
+  decision: string,
+
+  comments: string
+
+) {
+
+  await updateIncidentReview(
+
+    reviewId,
+
+    decision,
+
+    comments
+
+  );
+
+}
