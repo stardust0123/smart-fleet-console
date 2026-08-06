@@ -8,6 +8,7 @@ import {
   Search,
   Settings,
   LogOut,
+  Wrench, // NEW: Imported Wrench icon for the Job Allocation menu
 } from "lucide-react";
 
 import { usePathname } from "next/navigation";
@@ -32,6 +33,12 @@ export default function Sidebar() {
         href: "/manager/explorer",
         label: "Explorer",
         icon: Search,
+      },
+      // NEW: Added Job Allocation route for Manager
+      {
+        href: "/manager/job-allocation",
+        label: "Job Allocation",
+        icon: Wrench,
       },
     ],
 

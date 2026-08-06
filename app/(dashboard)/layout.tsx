@@ -1,5 +1,15 @@
-import Sidebar from "@/components/layout/Sidebar";
-import Topbar from "@/components/layout/Topbar";
+import React from "react";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "../globals.css";
+import Sidebar from "@/components/layout/Sidebar"; // Import thanh menu Sidebar của bạn
+
+const inter = Inter({ subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: "Smart Fleet Management Console",
+  description: "Fleet Management System Dashboard",
+};
 
 export default function DashboardLayout({
   children,
@@ -7,16 +17,16 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex h-screen bg-slate-50">
+    <div className={`flex h-screen bg-gray-100 ${inter.className}`}>
+      {/* Sidebar Navigation */}
       <Sidebar />
 
-      <main className="flex flex-1 flex-col overflow-hidden">
-        <Topbar />
-
-        <section className="flex-1 overflow-auto p-8">
+      {/* Main Content Area */}
+      <div className="flex-1 flex flex-col overflow-y-auto">
+        <main className="p-8">
           {children}
-        </section>
-      </main>
+        </main>
+      </div>
     </div>
   );
 }
