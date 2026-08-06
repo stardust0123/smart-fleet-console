@@ -1,5 +1,25 @@
-import ExplorerPage from "@/components/explorer/ExplorerPage";
+import DashboardHeader from "@/components/dashboard/DashboardHeader";
+import SafetyExplorer from "@/components/explorer/SafetyExplorer";
 
-export default function Page() {
-  return <ExplorerPage role="safety" />;
+import { loadSafetyExplorer } from "@/services/explorer/safety";
+
+export default async function SafetyExplorerPage() {
+  const {
+    incidentReviews,
+    safetyScores,
+  } = await loadSafetyExplorer();
+
+  return (
+    <>
+      <DashboardHeader
+        title="Safety Explorer"
+        description="Review incidents, monitor safety scores and investigate driver safety performance."
+      />
+
+      <SafetyExplorer
+        incidentReviews={incidentReviews}
+        safetyScores={safetyScores}
+      />
+    </>
+  );
 }
