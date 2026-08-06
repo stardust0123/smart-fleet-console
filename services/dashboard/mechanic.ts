@@ -14,6 +14,9 @@ import {
     assignMechanicToActivity,
     getAllAssignedJobsFull,
     getAllAssignedJobsFiltered,
+    getMechanicProfile,
+    normalizeJobStatusValues,
+    getDistinctJobStatusValues,
 } from '@/repositories/dashboard/mechanic';
 import { revalidatePath } from 'next/cache';
 
@@ -81,7 +84,6 @@ export async function loadMechanicDashboard(mechanicId: string) {
     const jobInfoByJobId = new Map(historyRows.map((h) => [h.job_id, h]));
     const myPendingJobs = jobRows
         .filter((j) => j.job_status !== 'Completed')
-        .slice(0, 5)
         .map((j) => {
             const info = jobInfoByJobId.get(j.job_id);
             return {
@@ -142,4 +144,17 @@ export async function takeSuggestedJob(mechanicId: string, activityId: string, l
 
 export async function loadAllExplorerJobs() {
     return getAllAssignedJobsFull();
+}
+
+export async function loadMechanicProfile(mechanicId: string) {
+    return getMechanicProfile(mechanicId);
+}
+
+export async function cleanupJobStatusValues() {
+    const before = await getDistinctJobStatusValues();
+    const result = await normalizeJobStatusValues();
+    const after = await getDistinctJobStatusValues();
+    revalidatePath('/mechanic');
+    revalidatePath('/mechanic/explorer');
+    return { before, result, after };
 }
