@@ -30,29 +30,13 @@ export default function PredictiveAlertChart({
         Alert distribution by type
       </p>
 
-      <ResponsiveContainer
-        width="100%"
-        height={320}
-      >
-        <BarChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" />
-
-          <XAxis dataKey="alert_name" />
-
-          <YAxis />
-
-          <Tooltip
-            formatter={(value) => [
-              `${value} alerts`,
-              "Total",
-            ]}
-          />
-
-          <Bar
-            dataKey="totalAlerts"
-            fill="#2563eb"
-            radius={[8, 8, 0, 0]}
-          />
+      <ResponsiveContainer width="100%" height={320}>
+        <BarChart data={data} layout="vertical" margin={{ top: 8, right: 24, left: 12, bottom: 8 }}>
+          <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
+          <XAxis type="number" tick={{ fontSize: 12 }} />
+          <YAxis dataKey="alert_name" type="category" width={140} tick={{ fontSize: 12 }} />
+          <Tooltip formatter={(value) => [`${value} alerts`, "Total"]} />
+          <Bar dataKey="totalAlerts" fill="#2563eb" radius={[0, 8, 8, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </div>

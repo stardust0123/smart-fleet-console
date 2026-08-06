@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { findUserByEmail } from "@/lib/auth";
 import { signToken } from "@/lib/jwt";
+import pool from "@/lib/db";
+import { hashPassword, isBcryptHash, verifyPassword } from "@/lib/password";
 
 export async function POST(req: NextRequest) {
   try {
@@ -34,8 +36,9 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Temporary password comparison
-    if (user.password !== password) {
+    const isPasswordValid = await verifyPassword(password, user.password);
+
+    if (!isPasswordValid) {
       return NextResponse.json(
         {
           success: false,
@@ -45,6 +48,11 @@ export async function POST(req: NextRequest) {
           status: 401,
         }
       );
+    }
+
+    if (!isBcryptHash(user.password)) {
+      const hashedPassword = await hashPassword(password);
+      await pool.execute("UPDATE users SET password = ? WHERE id = ?", [hashedPassword, user.id]);
     }
 
     const token = await signToken({
@@ -68,7 +76,7 @@ export async function POST(req: NextRequest) {
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
     path: "/",
-    maxAge: 60 * 60 * 24 * 7, // 7 days
+    maxAge: 60 * 60 * 24, // 1 day
     });
 
     return response;

@@ -1,5 +1,8 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import Pagination from "@/components/common/Pagination";
+
 type UpcomingMaintenance = {
   job_id: string;
   vehicle_id: string;
@@ -32,6 +35,20 @@ export default function DriverUpcomingMaintenanceTable({
 }: {
   maintenance: UpcomingMaintenance[];
 }) {
+  const pageSize = 20;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [maintenance]);
+
+  const totalPages = Math.max(1, Math.ceil(maintenance.length / pageSize));
+  const safeCurrentPage = Math.min(currentPage, totalPages);
+  const paginatedMaintenance = maintenance.slice(
+    (safeCurrentPage - 1) * pageSize,
+    safeCurrentPage * pageSize
+  );
+
   if (maintenance.length === 0) return null;
 
   return (
@@ -52,7 +69,7 @@ export default function DriverUpcomingMaintenanceTable({
             </tr>
           </thead>
           <tbody>
-            {maintenance.map((m, idx) => (
+            {paginatedMaintenance.map((m, idx) => (
               <tr key={`${m.job_id}-${idx}`} className="border-t">
                 <td className="py-2 font-medium">{m.job_id}</td>
                 <td className="py-2">{m.vehicle_id}</td>
@@ -73,6 +90,15 @@ export default function DriverUpcomingMaintenanceTable({
           </tbody>
         </table>
       </div>
+
+      {maintenance.length > pageSize && (
+        <Pagination
+          currentPage={safeCurrentPage}
+          totalItems={maintenance.length}
+          pageSize={pageSize}
+          onPageChange={setCurrentPage}
+        />
+      )}
     </div>
   );
 }

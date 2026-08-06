@@ -266,18 +266,20 @@ export async function getSupplierPerformance() {
 
 // --- NEW FUNCTION: PHASE 2 ---
 
-// Identify mechanics with certifications expiring within the next 30 days
-export async function getExpiringCertificates() {
+// Identify mechanics with certifications expiring within the next N days
+export async function getExpiringCertificates(days = 30) {
   const [rows] = await pool.query(`
     SELECT 
       m.mechanic_id, 
       m.full_name, 
       mc.certification_code, 
-      mc.expire_date 
+      mc.expire_date,
+      DATEDIFF(mc.expire_date, CURDATE()) AS days_remaining
     FROM mechanic m
     JOIN mechanics_certifications mc ON m.mechanic_id = mc.mechanic_id
-    WHERE mc.expire_date BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 30 DAY)
+    WHERE mc.expire_date >= CURDATE()
+      AND mc.expire_date <= DATE_ADD(CURDATE(), INTERVAL ? DAY)
     ORDER BY mc.expire_date ASC;
-  `);
-  return rows as { mechanic_id: string; full_name: string; certification_code: string; expire_date: Date }[];
+  `, [days]);
+  return rows as { mechanic_id: string; full_name: string; certification_code: string; expire_date: Date; days_remaining: number }[];
 }

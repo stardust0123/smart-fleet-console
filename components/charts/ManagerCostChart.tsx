@@ -63,9 +63,9 @@ export default function ManagerCostChart({ data }: Props) {
           <Tooltip
             cursor={{ fill: "#f1f5f9" }}
             contentStyle={{ borderRadius: "8px", border: "none", boxShadow: "0 4px 6px -1px rgb(0 0 0 / 0.1)" }}
-            // FIX: Used 'any' to prevent Recharts ValueType mismatch and cast to Number for safe formatting
-            formatter={(value: any, name: string) => {
-              if (name === "Cost") return [`${Number(value).toLocaleString()} VND`, "Avg Cost"];
+            formatter={(value: any, name: any) => {
+              const labelName = typeof name === "string" ? name : "Value";
+              if (labelName === "Cost") return [`${Number(value).toLocaleString()} VND`, "Avg Cost"];
               return [`${Number(value).toFixed(1)} hrs`, "Avg Downtime"];
             }}
           />

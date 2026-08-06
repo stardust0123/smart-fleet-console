@@ -1,3 +1,7 @@
+"use client";
+import { useEffect, useState } from "react";
+import Pagination from "../common/Pagination";
+
 interface UrgentRepair {
   alert_id: string;
   register_number: string;
@@ -11,9 +15,31 @@ interface Props {
   data: UrgentRepair[];
 }
 
+function formatDate(value: Date | string) {
+  const date = new Date(value);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${day}/${month}/${year}`;
+}
+
 export default function UrgentRepairTable({
   data,
 }: Props) {
+  const pageSize = 10;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [data]);
+
+  const totalPages = Math.max(1, Math.ceil(data.length / pageSize));
+  const safeCurrentPage = Math.min(currentPage, totalPages);
+  const paginatedData = data.slice(
+    (safeCurrentPage - 1) * pageSize,
+    safeCurrentPage * pageSize
+  );
+
   return (
     <div className="rounded-2xl border bg-white p-6 shadow-sm">
       <div className="mb-6">
@@ -40,7 +66,7 @@ export default function UrgentRepairTable({
           </thead>
 
           <tbody>
-            {data.map((repair) => (
+            {paginatedData.map((repair) => (
               <tr
                 key={repair.alert_id}
                 className="border-b hover:bg-slate-50"
@@ -68,15 +94,22 @@ export default function UrgentRepairTable({
                 </td>
 
                 <td className="px-4 py-3">
-                  {new Date(
-                    repair.alert_timestamp
-                  ).toLocaleDateString()}
+                  {formatDate(repair.alert_timestamp)}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
+      {data.length > pageSize && (
+        <Pagination
+          currentPage={safeCurrentPage}
+          totalItems={data.length}
+          pageSize={pageSize}
+          onPageChange={setCurrentPage}
+        />
+      )}
     </div>
   );
 }

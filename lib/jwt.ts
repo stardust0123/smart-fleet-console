@@ -23,7 +23,7 @@ export async function signToken(
       alg: "HS256",
     })
     .setIssuedAt()
-    .setExpirationTime("7d")
+    .setExpirationTime("24h")
     .sign(secret);
 }
 

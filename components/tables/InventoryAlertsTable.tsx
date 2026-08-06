@@ -1,4 +1,7 @@
-import React from "react";
+'use client';
+
+import { useEffect, useState } from "react";
+import Pagination from "@/components/common/Pagination";
 import { LowStockPart, SupplierPerformance } from "@/types/dashboard";
 
 interface InventoryAlertsProps {
@@ -7,6 +10,28 @@ interface InventoryAlertsProps {
 }
 
 export default function InventoryAlertsTable({ lowStockParts, supplierPerformance }: InventoryAlertsProps) {
+  const pageSize = 10;
+  const [lowStockPage, setLowStockPage] = useState(1);
+  const [supplierPage, setSupplierPage] = useState(1);
+
+  useEffect(() => {
+    setLowStockPage(1);
+    setSupplierPage(1);
+  }, [lowStockParts, supplierPerformance]);
+
+  const lowStockTotalPages = Math.max(1, Math.ceil(lowStockParts.length / pageSize));
+  const supplierTotalPages = Math.max(1, Math.ceil(supplierPerformance.length / pageSize));
+  const safeLowStockPage = Math.min(lowStockPage, lowStockTotalPages);
+  const safeSupplierPage = Math.min(supplierPage, supplierTotalPages);
+  const paginatedLowStockParts = lowStockParts.slice(
+    (safeLowStockPage - 1) * pageSize,
+    safeLowStockPage * pageSize
+  );
+  const paginatedSupplierPerformance = supplierPerformance.slice(
+    (safeSupplierPage - 1) * pageSize,
+    safeSupplierPage * pageSize
+  );
+
   return (
     <div className="flex flex-col gap-6">
       {/* Low Stock Parts Section */}
@@ -32,8 +57,8 @@ export default function InventoryAlertsTable({ lowStockParts, supplierPerformanc
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
-              {lowStockParts.length > 0 ? (
-                lowStockParts.map((part, idx) => (
+              {paginatedLowStockParts.length > 0 ? (
+                paginatedLowStockParts.map((part, idx) => (
                   <tr key={idx} className="hover:bg-gray-50 transition-colors">
                     <td className="px-4 py-3 font-medium text-gray-800">{part.part_name}</td>
                     <td className="px-4 py-3 text-right font-bold text-red-600">{part.quantity}</td>
@@ -51,6 +76,15 @@ export default function InventoryAlertsTable({ lowStockParts, supplierPerformanc
             </tbody>
           </table>
         </div>
+
+        {lowStockParts.length > pageSize && (
+          <Pagination
+            currentPage={safeLowStockPage}
+            totalItems={lowStockParts.length}
+            pageSize={pageSize}
+            onPageChange={setLowStockPage}
+          />
+        )}
       </div>
 
       {/* Supplier Performance Section */}
@@ -70,7 +104,7 @@ export default function InventoryAlertsTable({ lowStockParts, supplierPerformanc
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
-              {supplierPerformance.map((perf, idx) => (
+              {paginatedSupplierPerformance.map((perf, idx) => (
                 <tr key={idx} className="hover:bg-gray-50 transition-colors">
                   <td className="px-4 py-3 font-medium text-gray-800">{perf.part_number_1}</td>
                   <td className="px-4 py-3 text-right text-gray-600">
@@ -87,6 +121,15 @@ export default function InventoryAlertsTable({ lowStockParts, supplierPerformanc
             </tbody>
           </table>
         </div>
+
+        {supplierPerformance.length > pageSize && (
+          <Pagination
+            currentPage={safeSupplierPage}
+            totalItems={supplierPerformance.length}
+            pageSize={pageSize}
+            onPageChange={setSupplierPage}
+          />
+        )}
       </div>
     </div>
   );

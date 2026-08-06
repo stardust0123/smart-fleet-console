@@ -1,3 +1,8 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import Pagination from "@/components/common/Pagination";
+
 type ExplorerDriver = {
   driver_id: string;
   full_name: string;
@@ -20,6 +25,20 @@ export default function DriverExplorerTable({
 }: {
   records: ExplorerDriver[];
 }) {
+  const pageSize = 20;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [records]);
+
+  const totalPages = Math.max(1, Math.ceil(records.length / pageSize));
+  const safeCurrentPage = Math.min(currentPage, totalPages);
+  const paginatedRecords = records.slice(
+    (safeCurrentPage - 1) * pageSize,
+    safeCurrentPage * pageSize
+  );
+
   return (
     <div className="rounded-2xl border bg-white shadow-sm">
       <div className="border-b p-6">
@@ -42,7 +61,7 @@ export default function DriverExplorerTable({
             </tr>
           </thead>
           <tbody>
-            {records.map((driver) => (
+            {paginatedRecords.map((driver) => (
               <tr key={driver.driver_id} className="border-t hover:bg-slate-50">
                 <td className="px-6 py-4 font-medium">{driver.driver_id}</td>
                 <td className="px-6 py-4">{driver.full_name}</td>
@@ -66,6 +85,15 @@ export default function DriverExplorerTable({
           </tbody>
         </table>
       </div>
+
+      {records.length > pageSize && (
+        <Pagination
+          currentPage={safeCurrentPage}
+          totalItems={records.length}
+          pageSize={pageSize}
+          onPageChange={setCurrentPage}
+        />
+      )}
     </div>
   );
 }

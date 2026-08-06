@@ -1,9 +1,10 @@
 import React from "react";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
+import AvailableMechanicsTable from "@/components/tables/AvailableMechanicsTable";
+import ActiveJobsTable from "@/components/tables/ActiveJobsTable";
 import pool from "@/lib/db";
 import { RowDataPacket } from "mysql2";
 import { revalidatePath } from "next/cache";
-import { Wrench, CheckCircle } from "lucide-react";
 
 const safeFetch = async <T,>(promise: Promise<T>, fallback: T): Promise<T> => {
   try { return await promise; } catch (error) { return fallback; }
@@ -137,119 +138,13 @@ export default async function JobAllocationPage() {
         description="Review active maintenance jobs, assign mechanics directly, and update statuses."
       />
 
-      <div className="bg-white rounded-xl border border-gray-200 shadow-sm mt-6 overflow-hidden">
-        <div className="p-4 border-b bg-green-50/50 flex items-center gap-2">
-          <CheckCircle className="h-5 w-5 text-green-600" />
-          <h3 className="font-semibold text-green-800">Available Mechanics (Idle)</h3>
-        </div>
-        <div className="overflow-x-auto max-h-64">
-          <table className="w-full text-sm text-left">
-            <thead className="bg-gray-50 border-b text-gray-600 sticky top-0">
-              <tr>
-                <th className="px-4 py-3">Mechanic ID</th>
-                <th className="px-4 py-3">Full Name</th>
-                <th className="px-4 py-3">Depot Location</th>
-                <th className="px-4 py-3">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {availableMechanics && availableMechanics.length > 0 ? (
-                availableMechanics.map((mech) => (
-                  <tr key={mech.mechanic_id} className="border-b hover:bg-gray-50">
-                    <td className="px-4 py-3 font-medium text-gray-800">{mech.mechanic_id}</td>
-                    <td className="px-4 py-3 text-gray-700">{mech.full_name}</td>
-                    <td className="px-4 py-3 text-gray-600 font-medium">{mech.depot_name || 'N/A'}</td>
-                    <td className="px-4 py-3">
-                      <span className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-md font-medium border border-green-200">
-                        Ready for Assignment
-                      </span>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr><td colSpan={4} className="px-4 py-8 text-center text-gray-500">All mechanics are currently busy.</td></tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div className="bg-white rounded-xl border border-gray-200 shadow-sm mt-8 overflow-hidden mb-8">
-        <div className="p-4 border-b bg-gray-50 flex items-center gap-2">
-          <Wrench className="h-5 w-5 text-gray-500" />
-          <h3 className="font-semibold text-gray-800">Active Maintenance Jobs & Allocation</h3>
-        </div>
-        <div className="overflow-x-auto p-4">
-          <table className="w-full text-sm text-left">
-            <thead className="bg-gray-50 border-b text-gray-600">
-              <tr>
-                <th className="px-4 py-3">Job ID</th>
-                <th className="px-4 py-3">Vehicle & Model</th>
-                <th className="px-4 py-3">Vehicle Depot</th>
-                <th className="px-4 py-3">Open Date</th>
-                <th className="px-4 py-3">Current Status</th>
-                <th className="px-4 py-3 text-right">Assign & Update Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {jobs && jobs.length > 0 ? (
-                jobs.map((job) => (
-                  <tr key={job.job_id} className="border-b hover:bg-gray-50 transition-colors">
-                    <td className="px-4 py-3 font-medium text-gray-800">{job.job_id}</td>
-                    <td className="px-4 py-3 text-gray-700">
-                      <span className="font-semibold">{job.register_number}</span> 
-                      <span className="text-gray-500 text-xs ml-1 block">{job.model || 'Unknown Model'}</span>
-                    </td>
-                    <td className="px-4 py-3 text-gray-700">
-                      <span className="font-medium text-indigo-700 bg-indigo-50 px-2 py-1 rounded-md text-xs border border-indigo-100">
-                        {job.depot_name || 'N/A'}
-                      </span>
-                    </td>
-                    <td className="px-4 py-3 text-gray-600">{new Date(job.open_date).toLocaleDateString('vi-VN')}</td>
-                    <td className="px-4 py-3">
-                      <span className={`px-2 py-1 text-xs rounded-md font-medium border
-                        ${job.job_status === 'OPEN' || job.job_status === 'Pending' ? 'bg-blue-50 text-blue-700 border-blue-200' : 
-                          job.job_status === 'IN_PROGRESS' || job.job_status === 'In Progress' ? 'bg-amber-50 text-amber-700 border-amber-200' : 
-                          'bg-gray-100 text-gray-700 border-gray-200'}`}>
-                        {job.job_status}
-                      </span>
-                    </td>
-                    <td className="px-4 py-3 text-right">
-                      <form action={updateJobAndAssign} className="flex justify-end gap-2 items-center">
-                        <input type="hidden" name="job_id" value={job.job_id} />
-                        <input type="hidden" name="activity_id" value={job.activity_id || ''} />
-                        <select 
-                          name="mechanic_id" 
-                          defaultValue={job.assigned_mechanic_id || ""} 
-                          className="border border-gray-300 p-1.5 rounded-md bg-white text-xs text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500 w-36"
-                        >
-                          <option value="">-- Unassigned --</option>
-                          {allMechanics?.map((mech: any) => (
-                            <option key={mech.mechanic_id} value={mech.mechanic_id}>{mech.full_name}</option>
-                          ))}
-                        </select>
-                        <select 
-                          name="status" 
-                          defaultValue={job.job_status} 
-                          className="border border-gray-300 p-1.5 rounded-md bg-white text-xs text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500 w-32"
-                        >
-                          <option value="Pending">Pending</option>
-                          <option value="In Progress">In Progress</option>
-                          <option value="Completed">Completed</option>
-                        </select>
-                        <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-md text-xs font-medium transition-colors">
-                          Save
-                        </button>
-                      </form>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr><td colSpan={6} className="px-4 py-12 text-center text-gray-500">No active maintenance jobs found.</td></tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+      <div className="mt-6 space-y-6">
+        <AvailableMechanicsTable data={availableMechanics as any[]} />
+        <ActiveJobsTable
+          data={jobs as any[]}
+          allMechanics={allMechanics as any[]}
+          onSubmit={updateJobAndAssign}
+        />
       </div>
     </>
   );

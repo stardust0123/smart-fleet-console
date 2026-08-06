@@ -1,5 +1,8 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import Pagination from "@/components/common/Pagination";
+
 type Certification = {
   credential_id: string;
   credential_name: string;
@@ -22,6 +25,20 @@ export default function DriverCertificationsTable({
 }: {
   certifications: Certification[];
 }) {
+  const pageSize = 20;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [certifications]);
+
+  const totalPages = Math.max(1, Math.ceil(certifications.length / pageSize));
+  const safeCurrentPage = Math.min(currentPage, totalPages);
+  const paginatedCertifications = certifications.slice(
+    (safeCurrentPage - 1) * pageSize,
+    safeCurrentPage * pageSize
+  );
+
   return (
     <div className="rounded-2xl border bg-white p-6 shadow-sm">
       <h2 className="mb-4 text-lg font-semibold text-slate-900">
@@ -40,7 +57,7 @@ export default function DriverCertificationsTable({
             </tr>
           </thead>
           <tbody>
-            {certifications.map((c) => {
+            {paginatedCertifications.map((c) => {
               const expired = isExpired(c.expire_date);
               return (
                 <tr key={c.credential_id} className="border-t">
@@ -71,6 +88,15 @@ export default function DriverCertificationsTable({
           </tbody>
         </table>
       </div>
+
+      {certifications.length > pageSize && (
+        <Pagination
+          currentPage={safeCurrentPage}
+          totalItems={certifications.length}
+          pageSize={pageSize}
+          onPageChange={setCurrentPage}
+        />
+      )}
     </div>
   );
 }

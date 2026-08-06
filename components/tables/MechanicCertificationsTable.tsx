@@ -1,6 +1,23 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+import Pagination from '@/components/common/Pagination';
+
 export default function MechanicCertificationsTable({ data }: { data: any[] }) {
+    const pageSize = 20;
+    const [currentPage, setCurrentPage] = useState(1);
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [data]);
+
+    const totalPages = Math.max(1, Math.ceil(data.length / pageSize));
+    const safeCurrentPage = Math.min(currentPage, totalPages);
+    const paginatedData = data.slice(
+        (safeCurrentPage - 1) * pageSize,
+        safeCurrentPage * pageSize
+    );
+
     return (
         <div className="bg-white p-4 rounded shadow-md mt-6">
             <h2 className="text-xl font-bold mb-4">My Certifications</h2>
@@ -15,7 +32,7 @@ export default function MechanicCertificationsTable({ data }: { data: any[] }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((row, idx) => (
+                    {paginatedData.map((row, idx) => (
                         <tr key={idx} className="border-b hover:bg-gray-50">
                             <td className="p-2">{row.mechanic_id}</td>
                             <td className="p-2">{row.full_name}</td>
@@ -28,6 +45,17 @@ export default function MechanicCertificationsTable({ data }: { data: any[] }) {
                     ))}
                 </tbody>
             </table>
+
+            {data.length > pageSize && (
+                <div className="mt-4">
+                    <Pagination
+                        currentPage={safeCurrentPage}
+                        totalItems={data.length}
+                        pageSize={pageSize}
+                        onPageChange={setCurrentPage}
+                    />
+                </div>
+            )}
         </div>
     );
 }

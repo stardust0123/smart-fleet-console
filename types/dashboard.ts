@@ -44,3 +44,124 @@ export interface SupplierPerformance {
   unit_price_2: number;
   percentage_diff: number | string; 
 }
+
+/* =======================================================
+   KPI CARDS
+======================================================= */
+
+export interface SafetyDashboardKPIs {
+
+  pendingReviews: number;
+
+  highRiskDrivers: number;
+
+  retrainingRequired: number;
+
+  criticalIncidents: number;
+
+}
+
+/* =======================================================
+   RECENT INCIDENT REVIEW
+======================================================= */
+
+export interface RecentIncidentReview {
+
+  review_id: number;
+
+  driver_id: string;
+
+  full_name: string;
+
+  event_name: string;
+
+  severity_code: string;
+
+  event_timestamp: string;
+
+  review_status: string;
+
+}
+
+/* =======================================================
+   HIGH RISK DRIVER
+======================================================= */
+
+export interface HighRiskDriver {
+
+  driver_id: string;
+
+  full_name: string;
+
+  depot_name: string;
+
+  score_month: string;
+
+  safety_score: number;
+
+  comments: string | null;
+
+}
+
+/* =======================================================
+   SAFETY TREND
+======================================================= */
+
+export interface SafetyTrend {
+
+  depot_code: string;
+
+  ACL: number;
+
+  BRK: number;
+
+  FTG: number;
+
+  IDL: number;
+
+  PHO: number;
+
+  SB: number;
+
+  SCN: number;
+
+  SPD: number;
+
+  total_events: number;
+
+}
+
+/* =======================================================
+   RETRAINING QUEUE
+======================================================= */
+
+export interface RetrainingQueue {
+
+  training_id: number;
+
+  driver_id: string;
+
+  full_name: string;
+
+  training_type: string;
+
+  start_date: string;
+
+  end_date: string;
+
+  training_status: string;
+
+  outcome: string | null;
+
+  training_source: string;
+
+}
+
+
+export interface SeverityDistribution {
+
+  severity_code: string;
+
+  total: number;
+
+}

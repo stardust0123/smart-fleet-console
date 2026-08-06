@@ -1,5 +1,8 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import Pagination from "@/components/common/Pagination";
+
 interface Props {
   data: {
     mechanic_id: string;
@@ -10,6 +13,20 @@ interface Props {
 }
 
 export default function MechanicAllocationTable({ data }: Props) {
+  const pageSize = 20;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [data]);
+
+  const totalPages = Math.max(1, Math.ceil(data.length / pageSize));
+  const safeCurrentPage = Math.min(currentPage, totalPages);
+  const paginatedData = data.slice(
+    (safeCurrentPage - 1) * pageSize,
+    safeCurrentPage * pageSize
+  );
+
   return (
     <div className="rounded-2xl border bg-white p-6 shadow-sm">
       <h2 className="text-xl font-semibold">
@@ -30,7 +47,7 @@ export default function MechanicAllocationTable({ data }: Props) {
             </tr>
           </thead>
           <tbody className="divide-y text-slate-700">
-            {data?.map((row, index) => (
+            {paginatedData?.map((row, index) => (
               <tr key={index} className="hover:bg-slate-50">
                 <td className="p-3 font-medium text-slate-500">{row.mechanic_id}</td>
                 <td className="p-3 font-semibold">{row.full_name}</td>
@@ -53,6 +70,15 @@ export default function MechanicAllocationTable({ data }: Props) {
           </tbody>
         </table>
       </div>
+
+      {data.length > pageSize && (
+        <Pagination
+          currentPage={safeCurrentPage}
+          totalItems={data.length}
+          pageSize={pageSize}
+          onPageChange={setCurrentPage}
+        />
+      )}
     </div>
   );
 }

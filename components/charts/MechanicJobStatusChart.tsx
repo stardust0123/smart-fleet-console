@@ -43,6 +43,8 @@ export default function MechanicJobStatusChart({ data }: Props) {
               innerRadius={55}
               outerRadius={90}
               paddingAngle={3}
+              label={({ name, value }) => `${value}`}
+              labelLine={false}
             >
               {data.map((entry, idx) => (
                 <Cell
@@ -56,7 +58,7 @@ export default function MechanicJobStatusChart({ data }: Props) {
           </PieChart>
         </ResponsiveContainer>
       ) : (
-        <div className="flex h-[260px] items-center justify-center text-sm text-slate-400">
+        <div className="flex h-[16.25rem] items-center justify-center text-sm text-slate-400">
           No assigned jobs yet
         </div>
       )}

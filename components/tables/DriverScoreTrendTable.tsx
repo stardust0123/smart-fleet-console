@@ -1,5 +1,8 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import Pagination from "@/components/common/Pagination";
+
 type MonthlyScore = {
   score_id: number;
   score_month: string;
@@ -28,11 +31,25 @@ export default function DriverScoreTrendTable({
 }: {
   monthlyScores: MonthlyScore[];
 }) {
+  const pageSize = 20;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [monthlyScores]);
+
   const rows = monthlyScores.map((s, i) => {
     const prev = i > 0 ? monthlyScores[i - 1].safety_score : null;
     const diff = prev !== null ? s.safety_score - prev : null;
     return { ...s, diff };
   });
+
+  const totalPages = Math.max(1, Math.ceil(rows.length / pageSize));
+  const safeCurrentPage = Math.min(currentPage, totalPages);
+  const paginatedRows = rows.slice(
+    (safeCurrentPage - 1) * pageSize,
+    safeCurrentPage * pageSize
+  );
 
   return (
     <div className="rounded-2xl border bg-white p-6 shadow-sm">
@@ -50,7 +67,7 @@ export default function DriverScoreTrendTable({
             </tr>
           </thead>
           <tbody>
-            {rows.map((row) => (
+            {paginatedRows.map((row) => (
               <tr key={row.score_id} className="border-t">
                 <td className="py-2">{formatMonth(row.score_month)}</td>
                 <td className="py-2">
@@ -78,6 +95,15 @@ export default function DriverScoreTrendTable({
           </tbody>
         </table>
       </div>
+
+      {rows.length > pageSize && (
+        <Pagination
+          currentPage={safeCurrentPage}
+          totalItems={rows.length}
+          pageSize={pageSize}
+          onPageChange={setCurrentPage}
+        />
+      )}
     </div>
   );
 }

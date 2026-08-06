@@ -1,5 +1,9 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
+import Pagination from "@/components/common/Pagination";
+
 import SafetyScoreBadge from "./SafetyScoreBadge";
 
 import { SafetyScore } from "@/types/safety";
@@ -8,9 +12,32 @@ interface Props {
   data: SafetyScore[];
 }
 
+const PAGE_SIZE = 20;
+
 export default function SafetyScoreTable({
   data,
 }: Props) {
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [data]);
+
+  const totalPages = Math.max(
+    1,
+    Math.ceil(data.length / PAGE_SIZE)
+  );
+
+  const safeCurrentPage = Math.min(
+    currentPage,
+    totalPages
+  );
+
+  const paginatedData = data.slice(
+    (safeCurrentPage - 1) * PAGE_SIZE,
+    safeCurrentPage * PAGE_SIZE
+  );
 
   return (
 
@@ -62,7 +89,7 @@ export default function SafetyScoreTable({
 
           <tbody>
 
-            {data.length === 0 && (
+            {paginatedData.length === 0 && (
 
               <tr>
 
@@ -77,7 +104,7 @@ export default function SafetyScoreTable({
 
             )}
 
-            {data.map((score) => (
+            {paginatedData.map((score) => (
 
               <tr
                 key={score.score_id}
@@ -117,7 +144,7 @@ export default function SafetyScoreTable({
                 <td className="px-4 py-3">
                   {new Date(
                     score.calculated_at
-                  ).toLocaleDateString()}
+                  ).toLocaleDateString("en-GB")}
                 </td>
 
               </tr>
@@ -129,6 +156,17 @@ export default function SafetyScoreTable({
         </table>
 
       </div>
+
+      {data.length > PAGE_SIZE && (
+
+        <Pagination
+          currentPage={safeCurrentPage}
+          totalItems={data.length}
+          pageSize={PAGE_SIZE}
+          onPageChange={setCurrentPage}
+        />
+
+      )}
 
     </div>
 

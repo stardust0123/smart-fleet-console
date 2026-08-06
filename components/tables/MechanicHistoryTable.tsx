@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState, useTransition } from 'react';
+import Pagination from '@/components/common/Pagination';
 import { changeJobStatus, loadAllExplorerJobsFiltered } from '@/services/dashboard/mechanic';
 
 interface MechanicHistoryTableProps {
@@ -47,6 +48,8 @@ export default function MechanicHistoryTable({
     const [loadingId, setLoadingId] = useState<string | null>(null);
     const [serverData, setServerData] = useState(initialData);
     const [isPending, startTransition] = useTransition();
+    const [currentPage, setCurrentPage] = useState(1);
+    const pageSize = 10;
 
     function normalizeVN(str: string) {
         return str
@@ -99,6 +102,9 @@ export default function MechanicHistoryTable({
 
     const effectiveData = serverSide ? serverData : clientFilteredData;
     const rows = limit ? effectiveData.slice(0, limit) : effectiveData;
+    const totalPages = Math.max(1, Math.ceil(effectiveData.length / pageSize));
+    const safeCurrentPage = Math.min(currentPage, totalPages);
+    const paginatedRows = rows.slice((safeCurrentPage - 1) * pageSize, safeCurrentPage * pageSize);
 
     const handleUpdateStatus = async (jobId: string, status: string) => {
         if (!jobId) return;
@@ -111,6 +117,10 @@ export default function MechanicHistoryTable({
         setFilters(EMPTY_FILTERS);
         setSearch('');
     };
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [effectiveData]);
 
     const hasMechanicColumns = (initialData || []).some((r) => 'mechanic_id' in r || 'full_name' in r);
     const showFullNameColumn = hasMechanicColumns && !hideFullName;
@@ -141,7 +151,7 @@ export default function MechanicHistoryTable({
                         <input
                             type="text"
                             placeholder="Search Reg No or Model..."
-                            className="rounded-xl border border-slate-300 px-4 py-2 text-sm outline-none focus:border-blue-500 min-w-[220px]"
+                            className="rounded-xl border border-slate-300 px-4 py-2 text-sm outline-none focus:border-blue-500 min-w-[14rem]"
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                         />
@@ -208,7 +218,7 @@ export default function MechanicHistoryTable({
                 </div>
             )}
 
-            <div className={`overflow-x-auto overflow-y-auto rounded-b-2xl ${limit ? '' : 'max-h-[400px]'}`}>
+            <div className={`overflow-x-auto overflow-y-auto rounded-b-2xl ${limit ? '' : 'max-h-[25rem]'}`}>
                 <table className="min-w-full text-left relative">
                     <thead className="bg-slate-50 sticky top-0 z-10 shadow-sm">
                         <tr className="text-sm text-slate-600 border-b">
@@ -234,14 +244,14 @@ export default function MechanicHistoryTable({
                         </tr>
                     </thead>
                     <tbody>
-                        {rows.length === 0 && (
+                        {paginatedRows.length === 0 && (
                             <tr>
                                 <td colSpan={colSpan} className="px-6 py-8 text-center text-sm text-slate-400">
                                     No records found
                                 </td>
                             </tr>
                         )}
-                        {rows.map((row, idx) => (
+                        {paginatedRows.map((row, idx) => (
                             <tr key={row.job_id ? `${row.job_id}-${idx}` : idx} className="border-b last:border-0 hover:bg-slate-50">
                                 <td className="px-6 py-4 font-medium text-slate-900">{row.register_number}</td>
                                 <td className="px-6 py-4">{row.model}</td>
@@ -307,6 +317,17 @@ export default function MechanicHistoryTable({
                     </tbody>
                 </table>
             </div>
+
+            {!limit && effectiveData.length > pageSize && (
+                <div className="border-t bg-slate-50/50 px-4 py-3">
+                    <Pagination
+                        currentPage={safeCurrentPage}
+                        totalItems={effectiveData.length}
+                        pageSize={pageSize}
+                        onPageChange={setCurrentPage}
+                    />
+                </div>
+            )}
         </div>
     );
 }

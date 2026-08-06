@@ -34,6 +34,7 @@ export default async function ManagerDashboardPage({
 }) {
   const resolvedParams = await Promise.resolve(searchParams);
   const selectedDepot = (resolvedParams?.depot as string) || "";
+  const selectedMechanicId = (resolvedParams?.mechanicId as string) || "";
 
   const data = await loadManagerDashboard();
   const { 
@@ -76,7 +77,11 @@ export default async function ManagerDashboardPage({
   } catch (error) { mechanicsList = []; }
 
   const uniqueDepots = Array.from(new Set(mechanicsList.map((m: any) => m.depot_name))).filter(Boolean);
-  const filteredMechanics = selectedDepot ? mechanicsList.filter((m: any) => m.depot_name === selectedDepot) : mechanicsList;
+  const filteredMechanics = mechanicsList.filter((m: any) => {
+    const matchesDepot = !selectedDepot || m.depot_name === selectedDepot;
+    const matchesMechanicId = !selectedMechanicId || String(m.mechanic_id).toLowerCase().includes(selectedMechanicId.toLowerCase());
+    return matchesDepot && matchesMechanicId;
+  });
 
   return (
     <>
@@ -114,13 +119,14 @@ export default async function ManagerDashboardPage({
       <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden p-4 mb-8">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-4">
           <h3 className="text-base font-semibold text-gray-800 flex items-center gap-2"><Users className="h-5 w-5 text-green-600" /> Available Mechanics Readiness</h3>
-          <form action="/manager" method="GET" className="flex items-center gap-2">
+          <form action="/manager" method="GET" className="flex flex-wrap items-center gap-2">
+            <input type="text" name="mechanicId" defaultValue={selectedMechanicId} placeholder="Mechanic ID" className="p-2 border border-gray-300 rounded-md text-sm bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue-500" />
             <select name="depot" defaultValue={selectedDepot} className="p-2 border border-gray-300 rounded-md text-sm bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue-500">
               <option value="">All Depots</option>
               {uniqueDepots.map((depot: any) => <option key={depot} value={depot}>{depot}</option>)}
             </select>
             <button type="submit" className="bg-gray-800 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 transition-colors">Filter</button>
-            {selectedDepot && <a href="/manager" className="text-sm text-blue-600 hover:underline px-2">Clear</a>}
+            {(selectedDepot || selectedMechanicId) && <a href="/manager" className="text-sm text-blue-600 hover:underline px-2">Clear</a>}
           </form>
         </div>
         <div className="overflow-x-auto max-h-96">
