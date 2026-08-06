@@ -195,9 +195,7 @@ export async function createMaintenanceJob(vehicleId: string) {
 }
 
 // 9. Completed jobs for this mechanic (Dashboard "Completed Jobs" table)
-// Query gốc bạn đưa không có open_date/close_date — bắt buộc phải thêm 2 cột này
-// vì bạn yêu cầu hiển thị "ngày bắt đầu và ngày kết thúc". Đồng thời thêm
-// WHERE mj.job_status = 'Completed' đúng như bạn đề xuất.
+// WHERE mj.job_status = 'Completed' 
 export async function getCompletedJobsByMechanic(mechanicId: string) {
   const sql = `
     SELECT
@@ -241,7 +239,7 @@ export async function getMechanicTotalLabourHours(mechanicId: string) {
 
 // 11. Full assigned-jobs list for Explorer (replaces the generic maintenance
 // history query there — this one carries mechanic_id/full_name which Explorer
-// now needs to display, exactly as you specified).
+// now needs to display).
 export async function getMechanicAssignedJobsFull(mechanicId: string) {
   const sql = `
     SELECT
