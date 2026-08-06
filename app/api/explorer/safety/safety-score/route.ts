@@ -1,29 +1,39 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import {
-  searchSafetyScores,
+  searchSafetyScoresService,
 } from "@/services/explorer/safety";
 
 export async function POST(
   request: NextRequest
 ) {
+
   try {
-    const filters = await request.json();
 
-    const rows =
-      await searchSafetyScores(filters);
+    const filters =
+      await request.json();
 
-    return NextResponse.json(rows);
+    const data =
+      await searchSafetyScoresService(
+        filters
+      );
+
+    return NextResponse.json(data);
+
   } catch (error) {
+
     console.error(error);
 
     return NextResponse.json(
       {
-        message: "Unable to load safety scores.",
+        message:
+          "Unable to search safety scores.",
       },
       {
         status: 500,
       }
     );
+
   }
+
 }

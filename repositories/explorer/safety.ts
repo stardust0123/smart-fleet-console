@@ -8,6 +8,7 @@ import {
   DepotOption,
   EventOption,
   SafetyIncidentFilters,
+  SafetyScoreFilters,
 } from "@/types/safety";
 
 /* =======================================================
@@ -388,5 +389,120 @@ export async function updateIncidentReview(
       reviewId,
     ]
   );
+
+}
+
+export async function searchSafetyScores(
+  filters: SafetyScoreFilters
+) {
+
+  let sql = `
+    SELECT
+
+      ss.score_id,
+
+      d.driver_id,
+      d.full_name,
+
+      dp.depot_name,
+
+      ss.score_month,
+
+      ss.safety_score,
+
+      ss.calculated_at,
+
+      ss.comments
+
+    FROM safety_score ss
+
+    INNER JOIN driver d
+      ON ss.driver_id = d.driver_id
+
+    INNER JOIN depot dp
+      ON d.depot_code = dp.depot_code
+
+    WHERE 1 = 1
+  `;
+
+  const params: any[] = [];
+
+  // Driver
+
+  if (filters.driverId) {
+
+    sql += `
+      AND ss.driver_id = ?
+    `;
+
+    params.push(filters.driverId);
+
+  }
+
+  // Depot
+
+  if (filters.depotCode) {
+
+    sql += `
+      AND d.depot_code = ?
+    `;
+
+    params.push(filters.depotCode);
+
+  }
+
+  // Score Month
+
+  if (filters.scoreMonth) {
+
+    sql += `
+      AND DATE_FORMAT(
+        ss.score_month,
+        '%Y-%m'
+      ) = ?
+    `;
+
+    params.push(filters.scoreMonth);
+
+  }
+
+  // Minimum Score
+
+  if (filters.minimumScore !== undefined) {
+
+    sql += `
+      AND ss.safety_score >= ?
+    `;
+
+    params.push(filters.minimumScore);
+
+  }
+
+  // Maximum Score
+
+  if (filters.maximumScore !== undefined) {
+
+    sql += `
+      AND ss.safety_score <= ?
+    `;
+
+    params.push(filters.maximumScore);
+
+  }
+
+  sql += `
+    ORDER BY
+
+      ss.safety_score ASC,
+
+      d.full_name
+  `;
+
+  const [rows] =
+    await pool.query<
+      (SafetyScore & RowDataPacket)[]
+    >(sql, params);
+
+  return rows;
 
 }

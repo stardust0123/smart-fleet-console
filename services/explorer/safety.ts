@@ -7,6 +7,7 @@ import {
   getDrivers,
   getDepots,
   getSafetyEvents,
+  searchSafetyScores as searchSafetyScoresRepository,
 } from "@/repositories/explorer/safety";
 
 import {
@@ -36,7 +37,6 @@ export async function loadSafetyExplorer() {
 
     getIncidentReviews(),
 
-    // Default month
     getHighRiskDriversByMonth("2026-02"),
 
     getDrivers(),
@@ -47,11 +47,39 @@ export async function loadSafetyExplorer() {
 
   ]);
 
+  const safeIncidentReviews = incidentReviews.map((item: any) => ({
+    ...item,
+
+    event_timestamp:
+      item.event_timestamp instanceof Date
+        ? item.event_timestamp.toISOString()
+        : item.event_timestamp,
+
+    review_date:
+      item.review_date instanceof Date
+        ? item.review_date.toISOString()
+        : item.review_date,
+  }));
+
+  const safeSafetyScores = safetyScores.map((item: any) => ({
+    ...item,
+
+    score_month:
+      item.score_month instanceof Date
+        ? item.score_month.toISOString()
+        : item.score_month,
+
+    calculated_at:
+      item.calculated_at instanceof Date
+        ? item.calculated_at.toISOString()
+        : item.calculated_at,
+  }));
+
   return {
 
-    incidentReviews,
+    incidentReviews: safeIncidentReviews,
 
-    safetyScores,
+    safetyScores: safeSafetyScores,
 
     drivers,
 
@@ -81,16 +109,26 @@ export async function searchExplorer(
    SAFETY SCORE SEARCH
 ======================================================= */
 
+export async function searchSafetyScoresService(
+  filters: SafetyScoreFilters
+) {
+
+  return await searchSafetyScoresRepository(
+    filters
+  );
+
+}
+
+/* =======================================================
+   BACKWARD COMPATIBILITY
+======================================================= */
+
 export async function searchSafetyScores(
   filters: SafetyScoreFilters
 ) {
 
-  return await getHighRiskDriversByMonth(
-
-    filters.scoreMonth ??
-
-    "2026-02"
-
+  return await searchSafetyScoresRepository(
+    filters
   );
 
 }

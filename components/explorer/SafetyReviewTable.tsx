@@ -4,9 +4,25 @@ import { IncidentReview } from "@/types/safety";
 import RiskBadge from "./RiskBadge";
 import StatusBadge from "./StatusBadge";
 
+
 interface Props {
   data: IncidentReview[];
   onReview: (review: IncidentReview) => void;
+}
+
+function formatDate(date: string | null) {
+
+  if (!date) return "-";
+
+  return new Intl.DateTimeFormat(
+    "en-GB",
+    {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    }
+  ).format(new Date(date));
+
 }
 
 export default function SafetyReviewTable({
@@ -113,11 +129,7 @@ export default function SafetyReviewTable({
                 </td>
 
                 <td className="px-4 py-3">
-                  {review.review_date
-                    ? new Date(
-                        review.review_date
-                      ).toLocaleDateString()
-                    : "-"}
+                  {formatDate(review.review_date)}
                 </td>
 
                 <td className="px-4 py-3 text-center">

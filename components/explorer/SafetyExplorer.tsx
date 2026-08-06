@@ -5,17 +5,21 @@ import SafetyReviewModal from "./SafetyReviewModal";
 import SafetyViewModal from "./SafetyViewModal";
 import SafetyReviewFilters from "./SafetyReviewFilters";
 import SafetyReviewTable from "./SafetyReviewTable";
+import SafetyScoreFilters from "./SafetyScoreFilters";
+import SafetyScoreTable from "./SafetyScoreTable";
 
-import {
+import type {
   IncidentReview,
   SafetyIncidentFilters,
   SafetyScore,
+  SafetyScoreFilters as SafetyScoreFilterType,
   DriverOption,
   DepotOption,
   EventOption,
 } from "@/types/safety";
 
 interface Props {
+
   incidentReviews: IncidentReview[];
 
   safetyScores: SafetyScore[];
@@ -25,6 +29,7 @@ interface Props {
   depots: DepotOption[];
 
   events: EventOption[];
+
 }
 
 
@@ -43,6 +48,12 @@ export default function SafetyExplorer({
 
   const [reviews, setReviews] =
     useState(incidentReviews);
+
+  const [scores, setScores] =
+  useState(safetyScores);
+
+const [loadingScores, setLoadingScores] =
+  useState(false);
 
   const [loading, setLoading] =
     useState(false);
@@ -112,6 +123,56 @@ function handleAction(
     setLoading(false);
 
   }
+}
+
+async function handleScoreSearch(
+  filters: SafetyScoreFilterType
+) {
+
+  setLoadingScores(true);
+
+  try {
+
+    const response = await fetch(
+
+      "/api/explorer/safety/safety-score",
+
+      {
+
+        method: "POST",
+
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
+
+        body: JSON.stringify(
+          filters
+        ),
+
+      }
+
+    );
+
+    const data =
+      await response.json();
+
+    setScores(data);
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(
+      "Unable to load safety scores."
+    );
+
+  } finally {
+
+    setLoadingScores(false);
+
+  }
+
 }
 
 async function reloadReviews() {
@@ -211,36 +272,60 @@ async function reloadReviews() {
 
         {activeTab === "score" && (
 
-          <>
+  <>
 
-            <h2 className="text-xl font-semibold">
-              Safety Scores
-            </h2>
+    <h2 className="text-xl font-semibold">
+      Safety Scores
+    </h2>
 
-            <p className="mt-2 text-sm text-slate-500">
-              Monitor monthly driver safety
-              performance.
-            </p>
+    <p className="mt-2 text-sm text-slate-500">
+      Monitor monthly driver safety
+      performance and identify
+      high-risk drivers.
+    </p>
 
-            <div className="mt-6 rounded-lg border border-dashed p-10 text-center text-slate-400">
+    <div className="mt-6">
 
-              Safety Score
+      <SafetyScoreFilters
 
-              <br />
+        drivers={drivers}
 
-              Total Records:
+        depots={depots}
 
-              {" "}
+        onSearch={
+          handleScoreSearch
+        }
 
-              {safetyScores.length}
+      />
 
-            </div>
+    </div>
 
-          </>
+    <div className="mt-6">
 
-        )}
+      {loadingScores ? (
+
+        <div className="rounded-lg border p-8 text-center text-slate-500">
+
+          Loading safety scores...
+
+        </div>
+
+      ) : (
+
+        <SafetyScoreTable
+          data={scores}
+        />
+
+      )}
+
+    </div>
+
+  </>
+
+)}
 
       </div>
+
       <>
 
         <SafetyReviewModal

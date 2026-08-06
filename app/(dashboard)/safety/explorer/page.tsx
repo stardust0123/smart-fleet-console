@@ -28,9 +28,8 @@ export default async function SafetyExplorerPage() {
       />
 
       <SafetyExplorer
-        incidentReviews={incidentReviews as any}
-        safetyScores={safetyScores as any}
-
+        incidentReviews={incidentReviews}
+        safetyScores={safetyScores}
         drivers={drivers}
         depots={depots}
         events={events}
