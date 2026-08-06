@@ -8,25 +8,35 @@ import MechanicHistoryTable from "@/components/tables/MechanicHistoryTable";
 import MechanicCertificationsTable from "@/components/tables/MechanicCertificationsTable";
 import MechanicJobStatusChart from "@/components/charts/MechanicJobStatusChart";
 import MechanicDiagnosticChart from "@/components/charts/MechanicDiagnosticChart";
-import { loadMechanicDashboard } from "@/services/dashboard/mechanic";
+import { loadMechanicDashboard, loadMechanicProfile } from "@/services/dashboard/mechanic";
 
 export default async function MechanicDashboardPage() {
   const myMechanicId = 'MEC1004464';
 
-  const {
-    stats,
-    certifications,
-    jobStatusChart,
-    diagnosticChart,
-    myPendingJobs,
-    completedJobs,
-  } = await loadMechanicDashboard(myMechanicId);
+  const [
+    {
+      stats,
+      certifications,
+      jobStatusChart,
+      diagnosticChart,
+      myPendingJobs,
+      completedJobs,
+    },
+    profile,
+  ] = await Promise.all([
+    loadMechanicDashboard(myMechanicId),
+    loadMechanicProfile(myMechanicId),
+  ]);
 
   return (
     <>
       <DashboardHeader
         title="Mechanic Workspace"
-        description="Overview of your assigned tasks, certifications, and maintenance history."
+        description={
+          profile
+            ? `Hi, ${profile.full_name} (${profile.depot_code})`
+            : "Overview of your assigned tasks, certifications, and maintenance history."
+        }
       />
 
       <DashboardGrid>
@@ -47,22 +57,20 @@ export default async function MechanicDashboardPage() {
           data={myPendingJobs}
           showSearch={false}
           showFilters={false}
-          limit={5}
           title="My Active Jobs"
-          subtitle="Your 5 most recent non-completed jobs — see Explorer for the full list"
+          subtitle="All your non-completed jobs — see Explorer for full history"
         />
       </div>
 
-      {/* NEW: Completed jobs so the mechanic can see finished work */}
+      {/* Completed jobs so the mechanic can see finished work */}
       <div className="mt-6">
         <MechanicHistoryTable
           data={completedJobs}
           showSearch={false}
           showFilters={false}
           readOnly
-          limit={5}
           title="Completed Jobs"
-          subtitle="Jobs you have finished (most recent 5)"
+          subtitle="All jobs you have finished — scroll to see more"
         />
       </div>
 
