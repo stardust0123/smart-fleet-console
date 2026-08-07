@@ -155,26 +155,56 @@ Built using **MySQL**. Main entities include:
 - Predictive Alert, Safety Event, Event Review, Safety Score
 - Inventory, Supplier
 
+And other historical-records-related and conjunction tables.
+
 ---
 
 ## 📂 Project Structure
 
 ```text
-app/
-components/
-├── charts/
-├── common/
-├── dashboard/
-│   ├── manager/
-│   ├── mechanic/
-│   ├── safety/
-├── explorer/
-├── tables/
-repositories/
-services/
-types/
-lib/
-middleware.ts
+├── app/
+│   ├── (auth)/
+│   │   └── login/
+│   ├── (dashboard)/
+│   │   ├── driver/
+│   │      └── explore
+│   │   ├── manager/
+│   │      └── explore
+│   │   ├── mechanic/
+│   │      └── explore
+│   │   ├── safety/
+│   │      └── explore
+│   ├── api/
+│   │   ├── auth/
+│   │   └── explorer/
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
+├── components/
+│   ├── auth/
+│   ├── charts/
+│   ├── common/
+│   ├── dashboard/
+│   ├── explorer/
+│   ├── illustration/
+│   ├── layout/
+│   └── tables/
+├── hooks/
+├── lib/
+├── public/
+├── repositories/
+│   ├── dashboard/
+│   └── explorer/
+├── services/
+├── types/
+│   ├── dashboard.ts
+│   ├── safety.ts
+│   └── user.ts
+├── .env.local
+├── middleware.ts
+├── next.config.ts
+├── package.json
+└── tsconfig.json
 ```
 
 ---
