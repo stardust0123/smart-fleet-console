@@ -12,7 +12,7 @@ export default function Logo() {
           Smart Fleet
         </h1>
 
-        <p className="text-xs text-gray-800">
+        <p className="text-xs text-black">
           Management Console
         </p>
       </div>

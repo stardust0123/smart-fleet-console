@@ -25,7 +25,7 @@ export default function ManagerCostChart({ data }: Props) {
       <h2 className="text-xl font-semibold">
         Maintenance Cost & Downtime
       </h2>
-      <p className="mb-6 text-sm text-gray-800">
+      <p className="mb-6 text-sm text-black">
         Average cost vs downtime hours by vehicle model
       </p>
 

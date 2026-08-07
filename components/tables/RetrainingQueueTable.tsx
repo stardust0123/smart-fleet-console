@@ -30,7 +30,7 @@ function StatusBadge({
 }) {
 
   let color =
-    "bg-slate-100 text-gray-800";
+    "bg-slate-100 text-black";
 
   if (status === "Scheduled") {
 
@@ -96,7 +96,7 @@ export default function RetrainingQueueTable({
 
           </h2>
 
-          <p className="text-sm text-gray-800">
+          <p className="text-sm text-black">
 
             Drivers currently assigned to coaching or retraining.
 
@@ -150,7 +150,7 @@ export default function RetrainingQueueTable({
 
                 <td
                   colSpan={6}
-                  className="py-10 text-center text-gray-800"
+                  className="py-10 text-center text-black"
                 >
 
                   No retraining records.
@@ -176,7 +176,7 @@ export default function RetrainingQueueTable({
 
                   </div>
 
-                  <div className="text-xs text-gray-800">
+                  <div className="text-xs text-black">
 
                     {training.driver_id}
 

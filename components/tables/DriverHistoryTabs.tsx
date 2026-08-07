@@ -76,7 +76,7 @@ function severityBadgeClass(severityCode: string): string {
     case "MED":
       return "bg-yellow-100 text-yellow-700";
     default:
-      return "bg-slate-100 text-gray-800";
+      return "bg-slate-100 text-black";
   }
 }
 
@@ -89,7 +89,7 @@ function statusBadgeClass(status: string): string {
     case "pending":
       return "bg-yellow-100 text-yellow-700";
     default:
-      return "bg-slate-100 text-gray-800";
+      return "bg-slate-100 text-black";
   }
 }
 
@@ -163,7 +163,7 @@ export default function DriverHistoryTabs({
               className={`rounded-lg px-4 py-1.5 text-sm font-medium transition ${
                 tab === t.key
                   ? "bg-blue-600 text-white"
-                  : "text-gray-800 hover:bg-slate-100"
+                  : "text-slate-900 hover:bg-slate-100"
               }`}
             >
               {t.label}
@@ -241,7 +241,7 @@ export default function DriverHistoryTabs({
                     <td className="py-2">
                       <p>{m.activity_name ?? "—"}</p>
                       {m.diagnostic_result && (
-                        <p className="mt-1 text-xs italic text-gray-800">
+                        <p className="mt-1 text-xs italic text-black">
                           {m.diagnostic_result}
                         </p>
                       )}
@@ -273,7 +273,7 @@ export default function DriverHistoryTabs({
             Coaching / Retraining History
           </h2>
           {filteredCoaching.length === 0 ? (
-            <p className="text-sm text-gray-800">
+            <p className="text-sm text-black">
               No coaching or retraining records.
             </p>
           ) : (
@@ -309,11 +309,11 @@ export default function DriverHistoryTabs({
                       <td className="py-2">{c.outcome}</td>
                       <td className="py-2">
                         {c.comments ? (
-                          <span className="text-xs italic text-gray-800">
+                          <span className="text-xs italic text-black">
                             {c.comments}
                           </span>
                         ) : (
-                          <span className="text-gray-700">—</span>
+                          <span className="text-black">—</span>
                         )}
                       </td>
                     </tr>
@@ -331,7 +331,7 @@ export default function DriverHistoryTabs({
             Violations History
           </h2>
           {filteredViolations.length === 0 ? (
-            <p className="text-sm text-gray-800">
+            <p className="text-sm text-black">
               No violations. Keep up the good driving!
             </p>
           ) : (
@@ -352,10 +352,10 @@ export default function DriverHistoryTabs({
                         {formatDate(v.event_timestamp)}
                       </td>
                       <td className="py-2">
-                        <p className="font-medium text-gray-900">{v.event_name}</p>
-                        <p className="text-xs text-gray-800">{v.event_code}</p>
+                        <p className="font-medium text-slate-900">{v.event_name}</p>
+                        <p className="text-xs text-black">{v.event_code}</p>
                         {v.comments && (
-                          <p className="mt-1 text-xs italic text-gray-800">
+                          <p className="mt-1 text-xs italic text-black">
                             {v.comments}
                           </p>
                         )}
@@ -381,7 +381,7 @@ export default function DriverHistoryTabs({
                             {v.decision}
                           </span>
                         ) : (
-                          <span className="text-xs text-gray-700">
+                          <span className="text-xs text-black">
                             {v.review_status ?? "Pending"}
                           </span>
                         )}

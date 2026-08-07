@@ -34,7 +34,7 @@ export default function TopVehiclesAlertChart({
         Top Vehicles with Alerts
       </h2>
 
-      <p className="mb-6 text-sm text-gray-800">
+      <p className="mb-6 text-sm text-black">
         Vehicles with the highest number of predictive alerts
       </p>
 

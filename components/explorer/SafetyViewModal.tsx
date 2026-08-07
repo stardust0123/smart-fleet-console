@@ -34,7 +34,7 @@ export default function SafetyViewModal({
 
           <button
             onClick={onClose}
-            className="text-gray-800 transition hover:text-black"
+            className="text-black transition hover:text-black"
           >
             ✕
           </button>
@@ -74,7 +74,7 @@ export default function SafetyViewModal({
 
             <div>
 
-              <p className="text-xs text-gray-800">
+              <p className="text-xs text-black">
                 Severity
               </p>
 
@@ -93,7 +93,7 @@ export default function SafetyViewModal({
 
             <div>
 
-              <p className="text-xs text-gray-800">
+              <p className="text-xs text-black">
                 Review Status
               </p>
 
@@ -175,7 +175,7 @@ function Info({
   return (
     <div>
 
-      <p className="text-xs text-gray-800">
+      <p className="text-xs text-black">
         {label}
       </p>
 

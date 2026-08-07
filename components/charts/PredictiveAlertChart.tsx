@@ -26,7 +26,7 @@ export default function PredictiveAlertChart({
         Predictive Alerts
       </h2>
 
-      <p className="mb-6 text-sm text-gray-800">
+      <p className="mb-6 text-sm text-black">
         Alert distribution by type
       </p>
 

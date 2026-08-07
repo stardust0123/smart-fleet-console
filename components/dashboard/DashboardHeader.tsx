@@ -15,18 +15,18 @@ export default function DashboardHeader({
         </h1>
 
         {description && (
-          <p className="mt-2 text-gray-800">
+          <p className="mt-2 text-black">
             {description}
           </p>
         )}
       </div>
 
       <div className="text-right">
-        <p className="text-sm text-gray-700">
+        <p className="text-sm text-black">
           Last updated
         </p>
 
-        <p className="font-medium text-gray-800">
+        <p className="font-medium text-black">
           Just now
         </p>
       </div>

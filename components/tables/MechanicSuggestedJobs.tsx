@@ -45,18 +45,18 @@ export default function MechanicSuggestedJobs({ mechanicId, jobs }: Props) {
 
     return (
         <div className="rounded-2xl border bg-white shadow-sm p-6">
-            <h2 className="text-lg font-semibold text-gray-900">Suggested Jobs For You</h2>
-            <p className="mt-1 mb-4 text-sm text-gray-800">
+            <h2 className="text-lg font-semibold text-slate-900">Suggested Jobs For You</h2>
+            <p className="mt-1 mb-4 text-sm text-black">
                 Pending, unassigned jobs matching your certifications.
             </p>
 
             {visibleJobs.length === 0 ? (
-                <p className="text-sm text-gray-700">No matching jobs right now.</p>
+                <p className="text-sm text-black">No matching jobs right now.</p>
             ) : (
                 <div className="overflow-x-auto">
                     <table className="min-w-full text-left">
                         <thead>
-                            <tr className="text-sm text-gray-800 border-b">
+                            <tr className="text-sm text-slate-900 border-b">
                                 <th className="px-4 py-2 font-medium">Reg. Number</th>
                                 <th className="px-4 py-2 font-medium">Model</th>
                                 <th className="px-4 py-2 font-medium">Activity</th>
@@ -87,7 +87,7 @@ export default function MechanicSuggestedJobs({ mechanicId, jobs }: Props) {
                 </div>
             )}
 
-            {message && <p className="mt-3 text-sm text-gray-800">{message}</p>}
+            {message && <p className="mt-3 text-sm text-slate-900">{message}</p>}
         </div>
     );
 }

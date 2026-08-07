@@ -1,10 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "../globals.css";
 import Sidebar from "@/components/layout/Sidebar"; // Import thanh menu Sidebar của bạn
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Smart Fleet Management Console",
@@ -17,7 +14,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className={`flex h-screen bg-gray-100 ${inter.className}`}>
+    <div className="flex h-screen bg-gray-100">
       {/* Sidebar Navigation */}
       <Sidebar />
 

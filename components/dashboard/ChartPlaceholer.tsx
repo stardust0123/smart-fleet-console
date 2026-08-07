@@ -24,13 +24,13 @@ export default function ChartPlaceholder({
           </h2>
 
           {subtitle && (
-            <p className="mt-1 text-sm text-gray-800">
+            <p className="mt-1 text-sm text-black">
               {subtitle}
             </p>
           )}
         </div>
 
-        <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-gray-800">
+        <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-black">
           Demo
         </span>
       </div>
@@ -49,7 +49,7 @@ export default function ChartPlaceholder({
         ))}
       </div>
 
-      <div className="mt-6 flex justify-between text-xs text-gray-700">
+      <div className="mt-6 flex justify-between text-xs text-black">
         <span>Jan</span>
         <span>Mar</span>
         <span>May</span>

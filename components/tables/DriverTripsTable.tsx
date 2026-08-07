@@ -37,7 +37,7 @@ function severityBadgeClass(severityCode: string): string {
     case "MED":
       return "bg-yellow-100 text-yellow-700";
     default:
-      return "bg-slate-100 text-gray-800";
+      return "bg-slate-100 text-black";
   }
 }
 
@@ -85,7 +85,7 @@ export default function DriverTripsTable({
           Safety Alerts & Warnings
         </h2>
         {alerts.length === 0 ? (
-          <p className="text-sm text-gray-800">
+          <p className="text-sm text-black">
             No safety alerts. Keep up the good driving!
           </p>
         ) : (
@@ -106,10 +106,10 @@ export default function DriverTripsTable({
                       {formatDate(a.event_timestamp)}
                     </td>
                     <td className="py-2">
-                      <p className="font-medium text-gray-900">{a.event_name}</p>
-                      <p className="text-xs text-gray-800">{a.event_code}</p>
+                      <p className="font-medium text-slate-900">{a.event_name}</p>
+                      <p className="text-xs text-black">{a.event_code}</p>
                       {a.comments && (
-                        <p className="mt-1 text-xs italic text-gray-800">
+                        <p className="mt-1 text-xs italic text-black">
                           {a.comments}
                         </p>
                       )}
@@ -135,7 +135,7 @@ export default function DriverTripsTable({
                           {a.decision}
                         </span>
                       ) : (
-                        <span className="text-xs text-gray-700">
+                        <span className="text-xs text-black">
                           {a.review_status ?? "Pending"}
                         </span>
                       )}

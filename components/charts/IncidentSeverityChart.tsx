@@ -45,7 +45,7 @@ export default function IncidentSeverityChart({
 
         </h2>
 
-        <p className="text-sm text-gray-800">
+        <p className="text-sm text-black">
 
           Distribution of incidents by severity.
 

@@ -26,7 +26,7 @@ function statusBadgeClass(status: string): string {
     case "pending":
       return "bg-yellow-100 text-yellow-700";
     default:
-      return "bg-slate-100 text-gray-800";
+      return "bg-slate-100 text-black";
   }
 }
 

@@ -29,7 +29,7 @@ export default function StatusBadge({
       status as keyof typeof config
     ] ?? {
       bg: "bg-slate-100",
-      text: "text-gray-800",
+      text: "text-black",
     };
 
   return (

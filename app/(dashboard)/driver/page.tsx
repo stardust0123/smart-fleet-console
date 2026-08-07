@@ -68,8 +68,8 @@ export default async function DriverDashboardPage() {
   return (
     <div className="space-y-6">
       <div className="inline-block rounded-2xl border bg-white px-9 py-5 shadow-sm">
-        <h1 className="text-3xl font-semibold text-gray-900">{info.full_name}</h1>
-        <p className="mt-1 text-lg text-gray-800">
+        <h1 className="text-3xl font-semibold text-slate-900">{info.full_name}</h1>
+        <p className="mt-1 text-lg text-black">
           Driver ID: {info.driver_id || "N/A"}
         </p>
       </div>
@@ -98,19 +98,19 @@ export default async function DriverDashboardPage() {
           </h2>
           <dl className="mt-4 space-y-2 text-sm">
             <div className="flex justify-between">
-              <dt className="text-gray-800">Driver ID</dt>
-              <dd className="font-medium text-gray-900">
+              <dt className="text-black">Driver ID</dt>
+              <dd className="font-medium text-slate-900">
                 {info.driver_id || "N/A"}
               </dd>
             </div>
             <div className="flex justify-between">
-              <dt className="text-gray-800">Status</dt>
+              <dt className="text-black">Status</dt>
               <dd>
                 <span
                   className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${
                     info.status_name === "Active"
                       ? "bg-green-100 text-green-700"
-                      : "bg-slate-100 text-gray-800"
+                      : "bg-slate-100 text-slate-900"
                   }`}
                 >
                   {info.status_name || "N/A"}
@@ -118,22 +118,22 @@ export default async function DriverDashboardPage() {
               </dd>
             </div>
             <div className="flex justify-between">
-              <dt className="text-gray-800">Email</dt>
-              <dd className="font-medium text-gray-900">{info.email || "N/A"}</dd>
+              <dt className="text-black">Email</dt>
+              <dd className="font-medium text-slate-900">{info.email || "N/A"}</dd>
             </div>
             <div className="flex justify-between">
-              <dt className="text-gray-800">Phone</dt>
-              <dd className="font-medium text-gray-900">{info.phone || "N/A"}</dd>
+              <dt className="text-black">Phone</dt>
+              <dd className="font-medium text-slate-900">{info.phone || "N/A"}</dd>
             </div>
             <div className="flex justify-between">
-              <dt className="text-gray-800">Depot</dt>
-              <dd className="font-medium text-gray-900">
+              <dt className="text-black">Depot</dt>
+              <dd className="font-medium text-slate-900">
                 {info.depot_name || info.depot_code || "N/A"}
               </dd>
             </div>
             <div className="flex justify-between">
-              <dt className="text-gray-800">Emergency</dt>
-              <dd className="font-medium text-gray-900">
+              <dt className="text-black">Emergency</dt>
+              <dd className="font-medium text-slate-900">
                 {info.emergency_phone || "N/A"}
               </dd>
             </div>
@@ -147,33 +147,33 @@ export default async function DriverDashboardPage() {
               <p className="text-2xl font-bold text-gray-900">
                 {currentVehicleInfo.register_number}
               </p>
-              <p className="mt-1 text-sm text-gray-800">
+              <p className="mt-1 text-sm text-black">
                 {currentVehicleInfo.manufacturer} {currentVehicleInfo.model} (
                 {currentVehicleInfo.year_of_manufacture})
               </p>
               <dl className="mt-4 space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <dt className="text-gray-800">Vehicle ID</dt>
-                  <dd className="font-medium text-gray-900">
+                  <dt className="text-black">Vehicle ID</dt>
+                  <dd className="font-medium text-slate-900">
                     {currentVehicleInfo.vehicle_id}
                   </dd>
                 </div>
                 <div className="flex justify-between">
-                  <dt className="text-gray-800">Odometer</dt>
-                  <dd className="font-medium text-gray-900">
+                  <dt className="text-black">Odometer</dt>
+                  <dd className="font-medium text-slate-900">
                     {currentVehicleInfo.odometer_km.toLocaleString()} km
                   </dd>
                 </div>
                 <div className="flex justify-between">
-                  <dt className="text-gray-800">Assigned Since</dt>
-                  <dd className="font-medium text-gray-900">
+                  <dt className="text-black">Assigned Since</dt>
+                  <dd className="font-medium text-slate-900">
                     {currentVehicleInfo.assigned_from}
                   </dd>
                 </div>
               </dl>
             </div>
           ) : (
-            <p className="mt-3 text-sm text-gray-800">
+            <p className="mt-3 text-sm text-black">
               No vehicle currently assigned.
             </p>
           )}
@@ -185,8 +185,8 @@ export default async function DriverDashboardPage() {
           </h2>
           <div className="mt-4 space-y-3">
             <div>
-              <p className="text-sm text-gray-800">Latest Score</p>
-              <p className="flex items-center gap-2 text-2xl font-bold text-gray-900">
+              <p className="text-sm text-black">Latest Score</p>
+              <p className="flex items-center gap-2 text-2xl font-bold text-slate-900">
                 {latestScore !== null ? latestScore : "N/A"}
                 {scoreDiff !== null && scoreDiff !== 0 && (
                   <span
@@ -202,13 +202,13 @@ export default async function DriverDashboardPage() {
               </p>
             </div>
             <div>
-              <p className="text-sm text-gray-800">Average Score</p>
-              <p className="text-2xl font-bold text-gray-900">
+              <p className="text-sm text-black">Average Score</p>
+              <p className="text-2xl font-bold text-slate-900">
                 {avgScore !== null ? Number(avgScore).toFixed(1) : "N/A"}
               </p>
             </div>
             <div>
-              <p className="text-sm text-gray-800">Warnings</p>
+              <p className="text-sm text-black">Warnings</p>
               <p className="text-2xl font-bold text-red-600">{alerts.length}</p>
             </div>
           </div>

@@ -52,7 +52,7 @@ export default function ExplorerTable({
           Query Results
         </h2>
 
-        <p className="mt-1 text-sm text-gray-800">
+        <p className="mt-1 text-sm text-black">
           {data.length} vehicles found
         </p>
       </div>
@@ -60,7 +60,7 @@ export default function ExplorerTable({
       <div className="overflow-x-auto">
         <table className="min-w-full">
           <thead className="bg-slate-50">
-            <tr className="text-left text-sm text-gray-800">
+            <tr className="text-left text-sm text-slate-900">
               <th className="px-6 py-4">Vehicle ID</th>
               <th className="px-6 py-4">Registration</th>
               <th className="px-6 py-4">Manufacturer</th>
@@ -128,7 +128,7 @@ function StatusBadge({
     <span
       className={`rounded-full px-3 py-1 text-xs font-medium ${
         colors[status] ??
-        "bg-slate-100 text-gray-800"
+        "bg-slate-100 text-black"
       }`}
     >
       {status}

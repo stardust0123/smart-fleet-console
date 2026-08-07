@@ -170,7 +170,7 @@ export default function SafetyReviewFilters({
                 {driver.full_name}
               </div>
 
-              <div className="text-xs text-gray-800">
+              <div className="text-xs text-black">
                 {driver.driver_id}
               </div>
 

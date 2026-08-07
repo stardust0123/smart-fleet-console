@@ -17,8 +17,8 @@ interface Props {
 export default function MechanicDiagnosticChart({ data }: Props) {
   return (
     <div className="rounded-2xl border bg-white p-6 shadow-sm">
-      <h2 className="text-lg font-semibold text-gray-900">Diagnostics by Activity</h2>
-      <p className="mb-4 text-sm text-gray-800">
+      <h2 className="text-lg font-semibold text-slate-900">Diagnostics by Activity</h2>
+      <p className="mb-4 text-sm text-black">
         Top activity types across logged diagnostic records (fleet-wide)
       </p>
 

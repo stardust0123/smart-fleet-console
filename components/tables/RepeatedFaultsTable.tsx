@@ -32,13 +32,13 @@ export default function RepeatedFaultsTable({ data }: Props) {
       <h2 className="text-xl font-semibold text-red-600">
         Critical: Repeated Faults
       </h2>
-      <p className="mb-6 text-sm text-gray-800">
+      <p className="mb-6 text-sm text-black">
         Vehicles failing repeatedly for the same component
       </p>
 
       <div className="overflow-x-auto">
         <table className="w-full text-left text-sm">
-          <thead className="border-b bg-slate-50/50 text-gray-800">
+          <thead className="border-b bg-slate-50/50 text-black">
             <tr>
               <th className="p-3 font-medium">Vehicle Reg</th>
               <th className="p-3 font-medium">Category</th>
@@ -46,7 +46,7 @@ export default function RepeatedFaultsTable({ data }: Props) {
               <th className="p-3 font-medium">Last Failed</th>
             </tr>
           </thead>
-          <tbody className="divide-y text-gray-800">
+          <tbody className="divide-y text-black">
             {paginatedData?.map((row, index) => (
               <tr key={index} className="hover:bg-slate-50">
                 <td className="p-3 font-semibold">{row.register_number}</td>
@@ -59,7 +59,7 @@ export default function RepeatedFaultsTable({ data }: Props) {
             ))}
             {(!data || data.length === 0) && (
               <tr>
-                <td colSpan={4} className="p-4 text-center text-gray-800">
+                <td colSpan={4} className="p-4 text-center text-black">
                   No repeated faults detected.
                 </td>
               </tr>

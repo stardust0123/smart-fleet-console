@@ -65,7 +65,7 @@ export default function DriverCertificationsTable({
                     {c.credential_name}
                   </td>
                   <td className="py-2">
-                    <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-gray-800">
+                    <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-900">
                       {c.credential_type}
                     </span>
                   </td>

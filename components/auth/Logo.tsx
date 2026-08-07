@@ -25,7 +25,7 @@ export default function Logo() {
           Smart Fleet
         </h2>
 
-        <p className="text-sm text-gray-800">
+        <p className="text-sm text-black">
           Fleet Management Console
         </p>
 

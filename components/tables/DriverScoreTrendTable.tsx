@@ -81,13 +81,13 @@ export default function DriverScoreTrendTable({
                 </td>
                 <td className="py-2">
                   {row.diff === null ? (
-                    <span className="text-gray-700">—</span>
+                    <span className="text-black">—</span>
                   ) : row.diff > 0 ? (
                     <span className="font-medium text-green-600">▲ +{row.diff}</span>
                   ) : row.diff < 0 ? (
                     <span className="font-medium text-red-600">▼ {row.diff}</span>
                   ) : (
-                    <span className="font-medium text-gray-800">— 0</span>
+                    <span className="font-medium text-black">— 0</span>
                   )}
                 </td>
               </tr>

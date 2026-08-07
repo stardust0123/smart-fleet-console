@@ -194,7 +194,7 @@ async function reloadReviews() {
           className={`px-6 py-4 text-sm font-medium transition ${
             activeTab === "review"
               ? "border-b-2 border-blue-600 text-blue-600"
-              : "text-gray-800"
+              : "text-black"
           }`}
         >
           Incident Review
@@ -207,7 +207,7 @@ async function reloadReviews() {
           className={`px-6 py-4 text-sm font-medium transition ${
             activeTab === "score"
               ? "border-b-2 border-blue-600 text-blue-600"
-              : "text-gray-800"
+              : "text-black"
           }`}
         >
           Safety Score
@@ -227,7 +227,7 @@ async function reloadReviews() {
               Incident Reviews
             </h2>
 
-            <p className="mt-2 text-sm text-gray-800">
+            <p className="mt-2 text-sm text-black">
               Review safety incidents,
               investigate drivers,
               and complete event reviews.
@@ -248,7 +248,7 @@ async function reloadReviews() {
 
               {loading ? (
 
-                <div className="rounded-lg border p-8 text-center text-gray-800">
+                <div className="rounded-lg border p-8 text-center text-black">
 
                   Searching...
 
@@ -278,7 +278,7 @@ async function reloadReviews() {
       Safety Scores
     </h2>
 
-    <p className="mt-2 text-sm text-gray-800">
+    <p className="mt-2 text-sm text-black">
       Monitor monthly driver safety
       performance and identify
       high-risk drivers.
@@ -304,7 +304,7 @@ async function reloadReviews() {
 
       {loadingScores ? (
 
-        <div className="rounded-lg border p-8 text-center text-gray-800">
+        <div className="rounded-lg border p-8 text-center text-black">
 
           Loading safety scores...
 

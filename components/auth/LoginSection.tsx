@@ -22,7 +22,7 @@ export default function LoginSection() {
             Welcome back
           </h1>
 
-          <p className="mt-5 leading-8 text-gray-800">
+          <p className="mt-5 leading-8 text-black">
             Sign in with your company account to access
             your fleet operations dashboard.
           </p>

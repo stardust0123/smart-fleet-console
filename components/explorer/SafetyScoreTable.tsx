@@ -95,7 +95,7 @@ export default function SafetyScoreTable({
 
                 <td
                   colSpan={8}
-                  className="py-8 text-center text-gray-800"
+                  className="py-8 text-center text-black"
                 >
                   No safety scores found.
                 </td>

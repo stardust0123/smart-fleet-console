@@ -133,7 +133,7 @@ export default function SafetyReviewModal({
 
           <button
             onClick={onClose}
-            className="text-gray-800 hover:text-black"
+            className="text-black hover:text-black"
           >
             ✕
           </button>
@@ -173,7 +173,7 @@ export default function SafetyReviewModal({
 
             <div>
 
-              <p className="text-xs text-gray-800">
+              <p className="text-xs text-black">
 
                 Severity
 
@@ -311,7 +311,7 @@ function Info({
 
     <div>
 
-      <p className="text-xs text-gray-800">
+      <p className="text-xs text-black">
 
         {label}
 
