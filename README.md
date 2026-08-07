@@ -91,7 +91,7 @@ The following accounts can be used to test each system role.
 | Mechanic | `MEC1004464@smartfleet.com` |
 | Driver | `DR0001@smartfleet.com` |
 
-> **Note:** The login password is provided together with the submission.
+Login Password (applied to 4 users): Password123!
 
 ---
 
