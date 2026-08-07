@@ -47,11 +47,11 @@ export default function StatCard({
       </div>
 
       <div className="mt-6">
-        <h2 className="text-3xl font-bold text-slate-900">
+        <h2 className="text-3xl font-bold text-gray-900">
           {value}
         </h2>
 
-        <p className="mt-2 text-sm text-slate-500">
+        <p className="mt-2 text-sm text-gray-800">
           {title}
         </p>
       </div>

@@ -60,8 +60,8 @@ export default function DriverExplorerFilters({
       }}
     >
       <div className="mb-6">
-        <h2 className="text-lg font-semibold text-slate-900">Search Filters</h2>
-        <p className="mt-1 text-sm text-slate-500">
+        <h2 className="text-lg font-semibold text-gray-900">Search Filters</h2>
+        <p className="mt-1 text-sm text-gray-800">
           Filter driver records using one or more criteria.
         </p>
       </div>
@@ -90,7 +90,7 @@ export default function DriverExplorerFilters({
         />
 
         <div className="flex flex-col gap-2">
-          <label className="text-sm font-medium text-slate-700">Keyword</label>
+          <label className="text-sm font-medium text-gray-800">Keyword</label>
           <input
             type="text"
             name="keyword"
@@ -138,7 +138,7 @@ function FilterSelect({
 }) {
   return (
     <div className="flex flex-col gap-2">
-      <label className="text-sm font-medium text-slate-700">{label}</label>
+      <label className="text-sm font-medium text-gray-800">{label}</label>
       <select
         name={name}
         defaultValue={defaultValue}

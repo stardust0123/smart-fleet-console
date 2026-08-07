@@ -21,11 +21,11 @@ export default function Logo() {
 
       <div>
 
-        <h2 className="text-2xl font-bold text-slate-900">
+        <h2 className="text-2xl font-bold text-gray-900">
           Smart Fleet
         </h2>
 
-        <p className="text-sm text-slate-500">
+        <p className="text-sm text-gray-800">
           Fleet Management Console
         </p>
 

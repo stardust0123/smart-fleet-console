@@ -8,11 +8,11 @@ export default function Logo() {
       </div>
 
       <div>
-        <h1 className="font-bold text-slate-900">
+        <h1 className="font-bold text-gray-900">
           Smart Fleet
         </h1>
 
-        <p className="text-xs text-slate-500">
+        <p className="text-xs text-gray-800">
           Management Console
         </p>
       </div>

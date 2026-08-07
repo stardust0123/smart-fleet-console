@@ -56,7 +56,7 @@ export default function RecentIncidentTable({
 
         </h2>
 
-        <p className="text-sm text-slate-500">
+        <p className="text-sm text-gray-800">
 
           Latest safety events awaiting review or recently completed.
 
@@ -108,7 +108,7 @@ export default function RecentIncidentTable({
 
                 <td
                   colSpan={6}
-                  className="py-10 text-center text-slate-500"
+                  className="py-10 text-center text-gray-800"
                 >
 
                   No recent incidents.
@@ -140,7 +140,7 @@ export default function RecentIncidentTable({
 
                   </div>
 
-                  <div className="text-xs text-slate-500">
+                  <div className="text-xs text-gray-800">
 
                     {review.driver_id}
 

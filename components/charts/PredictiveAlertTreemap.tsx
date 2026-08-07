@@ -27,7 +27,7 @@ export default function PredictiveAlertTreemap({
         Top 10 Predictive Alert Types
       </h2>
 
-      <p className="mb-6 text-sm text-slate-500">
+      <p className="mb-6 text-sm text-gray-800">
         Most common predictive maintenance alerts
       </p>
 

@@ -225,7 +225,7 @@ export default function SafetyScoreFilters({
                         {driver.full_name}
                       </div>
 
-                      <div className="text-xs text-slate-500">
+                      <div className="text-xs text-gray-800">
                         {driver.driver_id}
                       </div>
 

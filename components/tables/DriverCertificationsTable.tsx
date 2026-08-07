@@ -41,7 +41,7 @@ export default function DriverCertificationsTable({
 
   return (
     <div className="rounded-2xl border bg-white p-6 shadow-sm">
-      <h2 className="mb-4 text-lg font-semibold text-slate-900">
+      <h2 className="mb-4 text-lg font-semibold text-gray-900">
         Certifications & Licences
       </h2>
 
@@ -61,11 +61,11 @@ export default function DriverCertificationsTable({
               const expired = isExpired(c.expire_date);
               return (
                 <tr key={c.credential_id} className="border-t">
-                  <td className="py-2 font-medium text-slate-900">
+                  <td className="py-2 font-medium text-gray-900">
                     {c.credential_name}
                   </td>
                   <td className="py-2">
-                    <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-600">
+                    <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-gray-800">
                       {c.credential_type}
                     </span>
                   </td>

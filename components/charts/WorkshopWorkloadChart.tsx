@@ -48,7 +48,7 @@ export default function WorkshopWorkloadChart({
         Workshop Workload
       </h2>
 
-      <p className="mb-6 text-sm text-slate-500">
+      <p className="mb-6 text-sm text-gray-800">
         Maintenance jobs by workshop
       </p>
 

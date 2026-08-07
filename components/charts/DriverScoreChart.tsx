@@ -41,8 +41,8 @@ export default function DriverScoreChart({
   return (
     <div className="rounded-2xl border bg-white p-6 shadow-sm">
       <div className="mb-4">
-        <h2 className="text-lg font-semibold text-slate-900">Monthly Safety Score</h2>
-        <p className="mt-1 text-sm text-slate-500">
+        <h2 className="text-lg font-semibold text-gray-900">Monthly Safety Score</h2>
+        <p className="mt-1 text-sm text-gray-800">
           {latestYear} monthly safety score
         </p>
       </div>

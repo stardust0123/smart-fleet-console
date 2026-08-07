@@ -47,7 +47,7 @@ export default function UrgentRepairTable({
           Urgent Repair Queue
         </h2>
 
-        <p className="text-sm text-slate-500">
+        <p className="text-sm text-gray-800">
           Vehicles requiring immediate workshop attention.
         </p>
       </div>

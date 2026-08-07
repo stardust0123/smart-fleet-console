@@ -69,7 +69,7 @@ export default function HighRiskDriverTable({
 
           </h2>
 
-          <p className="text-sm text-slate-500">
+          <p className="text-sm text-gray-800">
 
             Drivers requiring attention based on latest safety score.
 
@@ -119,7 +119,7 @@ export default function HighRiskDriverTable({
 
                 <td
                   colSpan={5}
-                  className="py-10 text-center text-slate-500"
+                  className="py-10 text-center text-gray-800"
                 >
 
                   No high-risk drivers.
@@ -150,7 +150,7 @@ export default function HighRiskDriverTable({
 
                     </div>
 
-                    <div className="text-xs text-slate-500">
+                    <div className="text-xs text-gray-800">
 
                       {driver.driver_id}
 

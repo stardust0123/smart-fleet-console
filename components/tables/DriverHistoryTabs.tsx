@@ -76,7 +76,7 @@ function severityBadgeClass(severityCode: string): string {
     case "MED":
       return "bg-yellow-100 text-yellow-700";
     default:
-      return "bg-slate-100 text-slate-700";
+      return "bg-slate-100 text-gray-800";
   }
 }
 
@@ -89,7 +89,7 @@ function statusBadgeClass(status: string): string {
     case "pending":
       return "bg-yellow-100 text-yellow-700";
     default:
-      return "bg-slate-100 text-slate-700";
+      return "bg-slate-100 text-gray-800";
   }
 }
 
@@ -163,7 +163,7 @@ export default function DriverHistoryTabs({
               className={`rounded-lg px-4 py-1.5 text-sm font-medium transition ${
                 tab === t.key
                   ? "bg-blue-600 text-white"
-                  : "text-slate-600 hover:bg-slate-100"
+                  : "text-gray-800 hover:bg-slate-100"
               }`}
             >
               {t.label}
@@ -182,7 +182,7 @@ export default function DriverHistoryTabs({
 
       {tab === "assignments" && (
         <div className="rounded-2xl border bg-white p-6 shadow-sm">
-          <h2 className="mb-4 text-lg font-semibold text-slate-900">
+          <h2 className="mb-4 text-lg font-semibold text-gray-900">
             Vehicle Assignments
           </h2>
           <div className="overflow-x-auto">
@@ -214,7 +214,7 @@ export default function DriverHistoryTabs({
 
       {tab === "maintenance" && (
         <div className="rounded-2xl border bg-white p-6 shadow-sm">
-          <h2 className="mb-4 text-lg font-semibold text-slate-900">
+          <h2 className="mb-4 text-lg font-semibold text-gray-900">
             Maintenance History
           </h2>
           <div className="overflow-x-auto">
@@ -241,7 +241,7 @@ export default function DriverHistoryTabs({
                     <td className="py-2">
                       <p>{m.activity_name ?? "—"}</p>
                       {m.diagnostic_result && (
-                        <p className="mt-1 text-xs italic text-slate-500">
+                        <p className="mt-1 text-xs italic text-gray-800">
                           {m.diagnostic_result}
                         </p>
                       )}
@@ -269,11 +269,11 @@ export default function DriverHistoryTabs({
 
       {tab === "coaching" && (
         <div className="rounded-2xl border bg-white p-6 shadow-sm">
-          <h2 className="mb-4 text-lg font-semibold text-slate-900">
+          <h2 className="mb-4 text-lg font-semibold text-gray-900">
             Coaching / Retraining History
           </h2>
           {filteredCoaching.length === 0 ? (
-            <p className="text-sm text-slate-500">
+            <p className="text-sm text-gray-800">
               No coaching or retraining records.
             </p>
           ) : (
@@ -292,7 +292,7 @@ export default function DriverHistoryTabs({
                 <tbody>
                   {filteredCoaching.map((c) => (
                     <tr key={c.training_id} className="border-t align-top">
-                      <td className="py-2 font-medium text-slate-900">
+                      <td className="py-2 font-medium text-gray-900">
                         {c.training_type}
                       </td>
                       <td className="py-2 whitespace-nowrap">{formatDate(c.start_date)}</td>
@@ -309,11 +309,11 @@ export default function DriverHistoryTabs({
                       <td className="py-2">{c.outcome}</td>
                       <td className="py-2">
                         {c.comments ? (
-                          <span className="text-xs italic text-slate-500">
+                          <span className="text-xs italic text-gray-800">
                             {c.comments}
                           </span>
                         ) : (
-                          <span className="text-slate-400">—</span>
+                          <span className="text-gray-700">—</span>
                         )}
                       </td>
                     </tr>
@@ -327,11 +327,11 @@ export default function DriverHistoryTabs({
 
       {tab === "violations" && (
         <div className="rounded-2xl border bg-white p-6 shadow-sm">
-          <h2 className="mb-4 text-lg font-semibold text-slate-900">
+          <h2 className="mb-4 text-lg font-semibold text-gray-900">
             Violations History
           </h2>
           {filteredViolations.length === 0 ? (
-            <p className="text-sm text-slate-500">
+            <p className="text-sm text-gray-800">
               No violations. Keep up the good driving!
             </p>
           ) : (
@@ -352,10 +352,10 @@ export default function DriverHistoryTabs({
                         {formatDate(v.event_timestamp)}
                       </td>
                       <td className="py-2">
-                        <p className="font-medium text-slate-900">{v.event_name}</p>
-                        <p className="text-xs text-slate-500">{v.event_code}</p>
+                        <p className="font-medium text-gray-900">{v.event_name}</p>
+                        <p className="text-xs text-gray-800">{v.event_code}</p>
                         {v.comments && (
-                          <p className="mt-1 text-xs italic text-slate-500">
+                          <p className="mt-1 text-xs italic text-gray-800">
                             {v.comments}
                           </p>
                         )}
@@ -381,7 +381,7 @@ export default function DriverHistoryTabs({
                             {v.decision}
                           </span>
                         ) : (
-                          <span className="text-xs text-slate-400">
+                          <span className="text-xs text-gray-700">
                             {v.review_status ?? "Pending"}
                           </span>
                         )}

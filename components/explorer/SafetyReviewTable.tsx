@@ -114,7 +114,7 @@ export default function SafetyReviewTable({
 
                 <td
                   colSpan={10}
-                  className="py-10 text-center text-slate-500"
+                  className="py-10 text-center text-gray-800"
                 >
                   No incident reviews found.
                 </td>

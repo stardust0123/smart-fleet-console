@@ -7,7 +7,7 @@ export default function Topbar() {
   return (
     <header className="flex h-16 items-center justify-between border-b bg-white px-8">
       <div>
-        <h2 className="text-xl font-semibold text-slate-900">
+        <h2 className="text-xl font-semibold text-gray-900">
           Dashboard
         </h2>
       </div>

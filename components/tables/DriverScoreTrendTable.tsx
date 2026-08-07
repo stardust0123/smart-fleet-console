@@ -53,7 +53,7 @@ export default function DriverScoreTrendTable({
 
   return (
     <div className="rounded-2xl border bg-white p-6 shadow-sm">
-      <h2 className="mb-4 text-lg font-semibold text-slate-900">
+      <h2 className="mb-4 text-lg font-semibold text-gray-900">
         Compare Score Over Time
       </h2>
 
@@ -81,13 +81,13 @@ export default function DriverScoreTrendTable({
                 </td>
                 <td className="py-2">
                   {row.diff === null ? (
-                    <span className="text-slate-400">—</span>
+                    <span className="text-gray-700">—</span>
                   ) : row.diff > 0 ? (
                     <span className="font-medium text-green-600">▲ +{row.diff}</span>
                   ) : row.diff < 0 ? (
                     <span className="font-medium text-red-600">▼ {row.diff}</span>
                   ) : (
-                    <span className="font-medium text-slate-500">— 0</span>
+                    <span className="font-medium text-gray-800">— 0</span>
                   )}
                 </td>
               </tr>

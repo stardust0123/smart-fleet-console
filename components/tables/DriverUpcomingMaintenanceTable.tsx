@@ -26,7 +26,7 @@ function statusBadgeClass(status: string): string {
     case "pending":
       return "bg-yellow-100 text-yellow-700";
     default:
-      return "bg-slate-100 text-slate-700";
+      return "bg-slate-100 text-gray-800";
   }
 }
 
@@ -53,7 +53,7 @@ export default function DriverUpcomingMaintenanceTable({
 
   return (
     <div className="rounded-2xl border bg-white p-6 shadow-sm">
-      <h2 className="mb-4 text-lg font-semibold text-slate-900">
+      <h2 className="mb-4 text-lg font-semibold text-gray-900">
         Upcoming Maintenance
       </h2>
       <div className="overflow-x-auto">

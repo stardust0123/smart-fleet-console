@@ -139,8 +139,8 @@ export default function MechanicHistoryTable({
         <div className="rounded-2xl border bg-white shadow-sm flex flex-col w-full">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b p-6 gap-4">
                 <div>
-                    <h2 className="text-lg font-semibold text-slate-900">{title}</h2>
-                    <p className="mt-1 text-sm text-slate-500">
+                    <h2 className="text-lg font-semibold text-gray-900">{title}</h2>
+                    <p className="mt-1 text-sm text-gray-800">
                         {subtitle ?? `${effectiveData.length} records found`}
                         {isPending && <span className="ml-2 text-xs text-blue-500">Đang lọc...</span>}
                     </p>
@@ -159,7 +159,7 @@ export default function MechanicHistoryTable({
                     {(showSearch || showFilters) && (
                         <button
                             onClick={resetFilters}
-                            className="rounded-xl border border-slate-300 px-4 py-2 text-sm text-slate-600 hover:bg-slate-50"
+                            className="rounded-xl border border-slate-300 px-4 py-2 text-sm text-gray-800 hover:bg-slate-50"
                         >
                             Reset
                         </button>
@@ -221,7 +221,7 @@ export default function MechanicHistoryTable({
             <div className={`overflow-x-auto overflow-y-auto rounded-b-2xl ${limit ? '' : 'max-h-[25rem]'}`}>
                 <table className="min-w-full text-left relative">
                     <thead className="bg-slate-50 sticky top-0 z-10 shadow-sm">
-                        <tr className="text-sm text-slate-600 border-b">
+                        <tr className="text-sm text-gray-800 border-b">
                             <th className="px-6 py-4 font-medium bg-slate-50">Reg. Number</th>
                             <th className="px-6 py-4 font-medium bg-slate-50">Model</th>
                             {hasMechanicColumns && (
@@ -246,14 +246,14 @@ export default function MechanicHistoryTable({
                     <tbody>
                         {paginatedRows.length === 0 && (
                             <tr>
-                                <td colSpan={colSpan} className="px-6 py-8 text-center text-sm text-slate-400">
+                                <td colSpan={colSpan} className="px-6 py-8 text-center text-sm text-gray-700">
                                     No records found
                                 </td>
                             </tr>
                         )}
                         {paginatedRows.map((row, idx) => (
                             <tr key={row.job_id ? `${row.job_id}-${idx}` : idx} className="border-b last:border-0 hover:bg-slate-50">
-                                <td className="px-6 py-4 font-medium text-slate-900">{row.register_number}</td>
+                                <td className="px-6 py-4 font-medium text-gray-900">{row.register_number}</td>
                                 <td className="px-6 py-4">{row.model}</td>
                                 {hasMechanicColumns && (
                                     <>
@@ -263,22 +263,22 @@ export default function MechanicHistoryTable({
                                         )}
                                     </>
                                 )}
-                                <td className="px-6 py-4 text-slate-500">
+                                <td className="px-6 py-4 text-gray-800">
                                     {row.open_date ? new Date(row.open_date).toLocaleDateString('en-GB') : 'N/A'}
                                 </td>
                                 {hasCloseDate && (
-                                    <td className="px-6 py-4 text-slate-500">
+                                    <td className="px-6 py-4 text-gray-800">
                                         {row.close_date ? new Date(row.close_date).toLocaleDateString('en-GB') : 'N/A'}
                                     </td>
                                 )}
                                 <td className="px-6 py-4">{row.activity_name ?? row.activity_code}</td>
                                 <td className="px-6 py-4">
                                     {row.job_status ? (
-                                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${STATUS_STYLES[row.job_status] ?? 'bg-slate-100 text-slate-700'}`}>
+                                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${STATUS_STYLES[row.job_status] ?? 'bg-slate-100 text-gray-800'}`}>
                                             {row.job_status}
                                         </span>
                                     ) : (
-                                        <span className="text-slate-400 text-xs">N/A</span>
+                                        <span className="text-gray-700 text-xs">N/A</span>
                                     )}
                                 </td>
                                 {!readOnly && (
@@ -308,7 +308,7 @@ export default function MechanicHistoryTable({
                                                 </button>
                                             </>
                                         ) : (
-                                            <span className="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-xs font-medium">Read-only</span>
+                                            <span className="bg-slate-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">Read-only</span>
                                         )}
                                     </td>
                                 )}

@@ -32,13 +32,13 @@ export default function MechanicAllocationTable({ data }: Props) {
       <h2 className="text-xl font-semibold">
         Available Mechanics
       </h2>
-      <p className="mb-6 text-sm text-slate-500">
+      <p className="mb-6 text-sm text-gray-800">
         List of active mechanics and their current certifications
       </p>
 
       <div className="overflow-x-auto">
         <table className="w-full text-left text-sm">
-          <thead className="border-b bg-slate-50 text-slate-500">
+          <thead className="border-b bg-slate-50 text-gray-800">
             <tr>
               <th className="p-3 font-medium">ID</th>
               <th className="p-3 font-medium">Full Name</th>
@@ -46,10 +46,10 @@ export default function MechanicAllocationTable({ data }: Props) {
               <th className="p-3 font-medium">Active Certifications</th>
             </tr>
           </thead>
-          <tbody className="divide-y text-slate-700">
+          <tbody className="divide-y text-gray-800">
             {paginatedData?.map((row, index) => (
               <tr key={index} className="hover:bg-slate-50">
-                <td className="p-3 font-medium text-slate-500">{row.mechanic_id}</td>
+                <td className="p-3 font-medium text-gray-800">{row.mechanic_id}</td>
                 <td className="p-3 font-semibold">{row.full_name}</td>
                 <td className="p-3">{row.phone}</td>
                 <td className="p-3">
@@ -61,7 +61,7 @@ export default function MechanicAllocationTable({ data }: Props) {
                         </span>
                       ))
                     ) : (
-                      <span className="text-slate-400 italic">Standard</span>
+                      <span className="text-gray-700 italic">Standard</span>
                     )}
                   </div>
                 </td>

@@ -19,18 +19,18 @@ export default function ChartPlaceholder({
     <DashboardCard>
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-lg font-semibold text-slate-900">
+          <h2 className="text-lg font-semibold text-gray-900">
             {title}
           </h2>
 
           {subtitle && (
-            <p className="mt-1 text-sm text-slate-500">
+            <p className="mt-1 text-sm text-gray-800">
               {subtitle}
             </p>
           )}
         </div>
 
-        <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-500">
+        <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-gray-800">
           Demo
         </span>
       </div>
@@ -49,7 +49,7 @@ export default function ChartPlaceholder({
         ))}
       </div>
 
-      <div className="mt-6 flex justify-between text-xs text-slate-400">
+      <div className="mt-6 flex justify-between text-xs text-gray-700">
         <span>Jan</span>
         <span>Mar</span>
         <span>May</span>

@@ -18,11 +18,11 @@ export default function LoginSection() {
 
         <div className="mt-16">
 
-          <h1 className="text-5xl font-bold text-slate-900">
+          <h1 className="text-5xl font-bold text-gray-900">
             Welcome back
           </h1>
 
-          <p className="mt-5 leading-8 text-slate-500">
+          <p className="mt-5 leading-8 text-gray-800">
             Sign in with your company account to access
             your fleet operations dashboard.
           </p>

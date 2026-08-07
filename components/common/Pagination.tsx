@@ -45,11 +45,11 @@ export default function Pagination({
 
       {/* Left */}
 
-      <p className="text-sm text-slate-500">
+      <p className="text-sm text-gray-800">
 
         Showing
 
-        <span className="mx-1 font-medium text-slate-700">
+        <span className="mx-1 font-medium text-gray-800">
 
           {start}-{end}
 
@@ -57,7 +57,7 @@ export default function Pagination({
 
         of
 
-        <span className="mx-1 font-medium text-slate-700">
+        <span className="mx-1 font-medium text-gray-800">
 
           {totalItems}
 
@@ -87,7 +87,7 @@ export default function Pagination({
 
         </button>
 
-        <span className="text-sm font-medium text-slate-700">
+        <span className="text-sm font-medium text-gray-800">
 
           Page {currentPage} / {totalPages}
 

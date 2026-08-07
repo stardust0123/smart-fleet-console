@@ -72,7 +72,7 @@ function KPICard({
 
         <div>
 
-          <p className="text-sm text-slate-500">
+          <p className="text-sm text-gray-800">
             {title}
           </p>
 

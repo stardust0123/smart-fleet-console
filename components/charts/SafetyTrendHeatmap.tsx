@@ -75,7 +75,7 @@ export default function SafetyTrendHeatmap({
 
         </h2>
 
-        <p className="text-sm text-slate-500">
+        <p className="text-sm text-gray-800">
 
           Compare safety events across depots.
 

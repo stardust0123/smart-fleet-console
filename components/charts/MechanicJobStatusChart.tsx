@@ -26,8 +26,8 @@ export default function MechanicJobStatusChart({ data }: Props) {
 
   return (
     <div className="rounded-2xl border bg-white p-6 shadow-sm">
-      <h2 className="text-lg font-semibold text-slate-900">My Jobs by Status</h2>
-      <p className="mb-4 text-sm text-slate-500">
+      <h2 className="text-lg font-semibold text-gray-900">My Jobs by Status</h2>
+      <p className="mb-4 text-sm text-gray-800">
         Jobs assigned to you, grouped by current status
       </p>
 
@@ -58,7 +58,7 @@ export default function MechanicJobStatusChart({ data }: Props) {
           </PieChart>
         </ResponsiveContainer>
       ) : (
-        <div className="flex h-[16.25rem] items-center justify-center text-sm text-slate-400">
+        <div className="flex h-[16.25rem] items-center justify-center text-sm text-gray-700">
           No assigned jobs yet
         </div>
       )}

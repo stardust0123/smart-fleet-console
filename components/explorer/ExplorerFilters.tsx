@@ -6,11 +6,11 @@ export default function ExplorerFilters() {
   return (
     <div className="rounded-2xl border bg-white p-6 shadow-sm">
       <div className="mb-6">
-        <h2 className="text-lg font-semibold text-slate-900">
+        <h2 className="text-lg font-semibold text-gray-900">
           Search Filters
         </h2>
 
-        <p className="mt-1 text-sm text-slate-500">
+        <p className="mt-1 text-sm text-gray-800">
           Filter fleet information using one or more criteria.
         </p>
       </div>
@@ -96,7 +96,7 @@ function FilterSelect({
 }: FilterSelectProps) {
   return (
     <div className="flex flex-col gap-2">
-      <label className="text-sm font-medium text-slate-700">
+      <label className="text-sm font-medium text-gray-800">
         {label}
       </label>
 

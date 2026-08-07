@@ -10,23 +10,23 @@ export default function DashboardHeader({
   return (
     <div className="mb-8 flex items-center justify-between">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900">
+        <h1 className="text-3xl font-bold tracking-tight text-gray-900">
           {title}
         </h1>
 
         {description && (
-          <p className="mt-2 text-slate-500">
+          <p className="mt-2 text-gray-800">
             {description}
           </p>
         )}
       </div>
 
       <div className="text-right">
-        <p className="text-sm text-slate-400">
+        <p className="text-sm text-gray-700">
           Last updated
         </p>
 
-        <p className="font-medium text-slate-700">
+        <p className="font-medium text-gray-800">
           Just now
         </p>
       </div>

@@ -37,7 +37,7 @@ function severityBadgeClass(severityCode: string): string {
     case "MED":
       return "bg-yellow-100 text-yellow-700";
     default:
-      return "bg-slate-100 text-slate-700";
+      return "bg-slate-100 text-gray-800";
   }
 }
 
@@ -51,7 +51,7 @@ export default function DriverTripsTable({
   return (
     <div className="space-y-4">
       <div className="rounded-2xl border bg-white p-6 shadow-sm">
-        <h2 className="mb-4 text-lg font-semibold text-slate-900">
+        <h2 className="mb-4 text-lg font-semibold text-gray-900">
           Vehicle Assignments
         </h2>
         <div className="overflow-x-auto">
@@ -81,11 +81,11 @@ export default function DriverTripsTable({
       </div>
 
       <div className="rounded-2xl border bg-white p-6 shadow-sm">
-        <h2 className="mb-4 text-lg font-semibold text-slate-900">
+        <h2 className="mb-4 text-lg font-semibold text-gray-900">
           Safety Alerts & Warnings
         </h2>
         {alerts.length === 0 ? (
-          <p className="text-sm text-slate-500">
+          <p className="text-sm text-gray-800">
             No safety alerts. Keep up the good driving!
           </p>
         ) : (
@@ -106,10 +106,10 @@ export default function DriverTripsTable({
                       {formatDate(a.event_timestamp)}
                     </td>
                     <td className="py-2">
-                      <p className="font-medium text-slate-900">{a.event_name}</p>
-                      <p className="text-xs text-slate-500">{a.event_code}</p>
+                      <p className="font-medium text-gray-900">{a.event_name}</p>
+                      <p className="text-xs text-gray-800">{a.event_code}</p>
                       {a.comments && (
-                        <p className="mt-1 text-xs italic text-slate-500">
+                        <p className="mt-1 text-xs italic text-gray-800">
                           {a.comments}
                         </p>
                       )}
@@ -135,7 +135,7 @@ export default function DriverTripsTable({
                           {a.decision}
                         </span>
                       ) : (
-                        <span className="text-xs text-slate-400">
+                        <span className="text-xs text-gray-700">
                           {a.review_status ?? "Pending"}
                         </span>
                       )}
