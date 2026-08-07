@@ -19,7 +19,7 @@ export default function PendingActionsTable({ overdueVehicles, awaitingInspectio
         </div>
         <div className="overflow-x-auto h-64">
           <table className="w-full text-sm text-left">
-            <thead className="bg-gray-50 text-gray-600 font-medium border-b sticky top-0">
+            <thead className="bg-gray-50 text-gray-900 font-medium border-b sticky top-0">
               <tr>
                 <th className="px-4 py-3">Vehicle Reg</th>
                 <th className="px-4 py-3">Model</th>
@@ -31,9 +31,9 @@ export default function PendingActionsTable({ overdueVehicles, awaitingInspectio
               {overdueVehicles.length > 0 ? (
                 overdueVehicles.map((vehicle, idx) => (
                   <tr key={idx} className="hover:bg-gray-50 transition-colors">
-                    <td className="px-4 py-3 font-medium text-gray-800">{vehicle.register_number}</td>
-                    <td className="px-4 py-3 text-gray-600">{vehicle.model}</td>
-                    <td className="px-4 py-3 text-right text-gray-600">
+                    <td className="px-4 py-3 font-medium text-black">{vehicle.register_number}</td>
+                    <td className="px-4 py-3 text-gray-900">{vehicle.model}</td>
+                    <td className="px-4 py-3 text-right text-gray-900">
                       {new Intl.NumberFormat('vi-VN').format(vehicle.odometer_km)}
                     </td>
                     <td className="px-4 py-3 text-right font-bold text-orange-600">
@@ -43,7 +43,7 @@ export default function PendingActionsTable({ overdueVehicles, awaitingInspectio
                 ))
               ) : (
                 <tr>
-                  <td colSpan={4} className="px-4 py-8 text-center text-gray-500">All vehicles are up to date.</td>
+                  <td colSpan={4} className="px-4 py-8 text-center text-black">All vehicles are up to date.</td>
                 </tr>
               )}
             </tbody>
@@ -59,7 +59,7 @@ export default function PendingActionsTable({ overdueVehicles, awaitingInspectio
         </div>
         <div className="overflow-x-auto h-64">
           <table className="w-full text-sm text-left">
-            <thead className="bg-gray-50 text-gray-600 font-medium border-b sticky top-0">
+            <thead className="bg-gray-50 text-gray-900 font-medium border-b sticky top-0">
               <tr>
                 <th className="px-4 py-3">Vehicle ID</th>
                 <th className="px-4 py-3">Vehicle Reg</th>
@@ -71,9 +71,9 @@ export default function PendingActionsTable({ overdueVehicles, awaitingInspectio
               {awaitingInspection.length > 0 ? (
                 awaitingInspection.map((vehicle, idx) => (
                   <tr key={idx} className="hover:bg-gray-50 transition-colors">
-                    <td className="px-4 py-3 font-medium text-gray-800">{vehicle.vehicle_id}</td>
-                    <td className="px-4 py-3 text-gray-600">{vehicle.register_number}</td>
-                    <td className="px-4 py-3 text-gray-600">{vehicle.model}</td>
+                    <td className="px-4 py-3 font-medium text-black">{vehicle.vehicle_id}</td>
+                    <td className="px-4 py-3 text-gray-900">{vehicle.register_number}</td>
+                    <td className="px-4 py-3 text-gray-900">{vehicle.model}</td>
                     <td className="px-4 py-3 text-center">
                       <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-md font-medium">
                         {vehicle.status_code}
@@ -83,7 +83,7 @@ export default function PendingActionsTable({ overdueVehicles, awaitingInspectio
                 ))
               ) : (
                 <tr>
-                  <td colSpan={4} className="px-4 py-8 text-center text-gray-500">No vehicles waiting for inspection.</td>
+                  <td colSpan={4} className="px-4 py-8 text-center text-black">No vehicles waiting for inspection.</td>
                 </tr>
               )}
             </tbody>

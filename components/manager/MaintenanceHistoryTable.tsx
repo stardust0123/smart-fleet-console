@@ -35,17 +35,17 @@ export default function MaintenanceHistoryTable({ data }: Props) {
   return (
     <div className="mb-8 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
       <div className="flex items-center justify-between border-b bg-gray-50 p-4">
-        <h3 className="flex items-center gap-2 font-semibold text-gray-800">
+        <h3 className="flex items-center gap-2 font-semibold text-black">
           <Wrench className="h-5 w-5 text-blue-500" /> Maintenance History Records
         </h3>
-        <span className="rounded-full border bg-white px-3 py-1 text-xs font-medium text-gray-600">
+        <span className="rounded-full border bg-white px-3 py-1 text-xs font-medium text-gray-900">
           {data?.length || 0} found
         </span>
       </div>
 
       <div className="overflow-x-auto max-h-96">
         <table className="w-full text-left text-sm">
-          <thead className="sticky top-0 bg-gray-50 text-gray-600">
+          <thead className="sticky top-0 bg-gray-50 text-gray-900">
             <tr>
               <th className="px-4 py-3 font-medium">Job ID</th>
               <th className="px-4 py-3 font-medium">Vehicle</th>
@@ -59,24 +59,24 @@ export default function MaintenanceHistoryTable({ data }: Props) {
             {paginatedData.length > 0 ? (
               paginatedData.map((h, idx) => (
                 <tr key={`${h.job_id || "job"}-${idx}`} className="border-b hover:bg-gray-50">
-                  <td className="px-4 py-3 font-medium text-gray-800">{h.job_id}</td>
-                  <td className="px-4 py-3 text-gray-700">{h.vehicle_id}</td>
+                  <td className="px-4 py-3 font-medium text-black">{h.job_id}</td>
+                  <td className="px-4 py-3 text-black">{h.vehicle_id}</td>
                   <td className="px-4 py-3 font-medium text-blue-700">{h.mechanics_assigned || "Unassigned"}</td>
-                  <td className="px-4 py-3 text-gray-600">
+                  <td className="px-4 py-3 text-gray-900">
                     {h.start_date ? new Date(h.start_date).toLocaleDateString("vi-VN") : "N/A"}
                   </td>
                   <td className="px-4 py-3">
                     <span
                       className={`rounded-md border px-2 py-1 text-xs font-medium ${
                         h.job_status === "CLOSED" || h.job_status === "COMPLETED" || h.job_status === "Completed"
-                          ? "border-gray-200 bg-gray-100 text-gray-700"
+                          ? "border-gray-200 bg-gray-100 text-black"
                           : "border-amber-200 bg-amber-50 text-amber-700"
                       }`}
                     >
                       {h.job_status}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-right font-medium text-gray-700">
+                  <td className="px-4 py-3 text-right font-medium text-black">
                     {h.total_cost_vnd
                       ? new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(h.total_cost_vnd)
                       : "-"}
@@ -85,7 +85,7 @@ export default function MaintenanceHistoryTable({ data }: Props) {
               ))
             ) : (
               <tr>
-                <td colSpan={6} className="px-4 py-12 text-center text-gray-500">
+                <td colSpan={6} className="px-4 py-12 text-center text-black">
                   No history records found matching your filters.
                 </td>
               </tr>

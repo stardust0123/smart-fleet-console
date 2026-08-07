@@ -48,7 +48,7 @@ export default function DriverCertificationsTable({
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="text-left text-gray-500">
+            <tr className="text-left text-black">
               <th className="pb-2">Name</th>
               <th className="pb-2">Type</th>
               <th className="pb-2">Issue Date</th>

@@ -60,7 +60,7 @@ export default function DriverScoreTrendTable({
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="text-left text-gray-500">
+            <tr className="text-left text-black">
               <th className="pb-2">Month</th>
               <th className="pb-2">Score</th>
               <th className="pb-2">Change</th>

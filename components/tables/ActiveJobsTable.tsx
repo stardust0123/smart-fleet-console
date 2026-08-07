@@ -40,13 +40,13 @@ export default function ActiveJobsTable({ data, allMechanics, onSubmit }: Props)
   return (
     <div className="mb-8 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
       <div className="flex items-center gap-2 border-b bg-gray-50 p-4">
-        <Wrench className="h-5 w-5 text-gray-500" />
-        <h3 className="font-semibold text-gray-800">Active Maintenance Jobs & Allocation</h3>
+        <Wrench className="h-5 w-5 text-black" />
+        <h3 className="font-semibold text-black">Active Maintenance Jobs & Allocation</h3>
       </div>
 
       <div className="overflow-x-auto p-4">
         <table className="w-full text-left text-sm">
-          <thead className="border-b bg-gray-50 text-gray-600">
+          <thead className="border-b bg-gray-50 text-gray-900">
             <tr>
               <th className="px-4 py-3">Job ID</th>
               <th className="px-4 py-3">Vehicle & Model</th>
@@ -60,17 +60,17 @@ export default function ActiveJobsTable({ data, allMechanics, onSubmit }: Props)
             {paginatedData.length > 0 ? (
               paginatedData.map((job) => (
                 <tr key={job.job_id} className="border-b transition-colors hover:bg-gray-50">
-                  <td className="px-4 py-3 font-medium text-gray-800">{job.job_id}</td>
-                  <td className="px-4 py-3 text-gray-700">
+                  <td className="px-4 py-3 font-medium text-black">{job.job_id}</td>
+                  <td className="px-4 py-3 text-black">
                     <span className="font-semibold">{job.register_number}</span>
-                    <span className="ml-1 block text-xs text-gray-500">{job.model || "Unknown Model"}</span>
+                    <span className="ml-1 block text-xs text-black">{job.model || "Unknown Model"}</span>
                   </td>
-                  <td className="px-4 py-3 text-gray-700">
+                  <td className="px-4 py-3 text-black">
                     <span className="rounded-md border border-indigo-100 bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700">
                       {job.depot_name || "N/A"}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-gray-600">{new Date(job.open_date).toLocaleDateString("vi-VN")}</td>
+                  <td className="px-4 py-3 text-gray-900">{new Date(job.open_date).toLocaleDateString("vi-VN")}</td>
                   <td className="px-4 py-3">
                     <span
                       className={`rounded-md border px-2 py-1 text-xs font-medium ${
@@ -78,7 +78,7 @@ export default function ActiveJobsTable({ data, allMechanics, onSubmit }: Props)
                           ? "border-blue-200 bg-blue-50 text-blue-700"
                           : job.job_status === "IN_PROGRESS" || job.job_status === "In Progress"
                             ? "border-amber-200 bg-amber-50 text-amber-700"
-                            : "border-gray-200 bg-gray-100 text-gray-700"
+                            : "border-gray-200 bg-gray-100 text-black"
                       }`}
                     >
                       {job.job_status}
@@ -91,7 +91,7 @@ export default function ActiveJobsTable({ data, allMechanics, onSubmit }: Props)
                       <select
                         name="mechanic_id"
                         defaultValue={job.assigned_mechanic_id || ""}
-                        className="w-36 rounded-md border border-gray-300 bg-white p-1.5 text-xs text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        className="w-36 rounded-md border border-gray-300 bg-white p-1.5 text-xs text-black focus:outline-none focus:ring-1 focus:ring-blue-500"
                       >
                         <option value="">-- Unassigned --</option>
                         {allMechanics?.map((mech) => (
@@ -103,7 +103,7 @@ export default function ActiveJobsTable({ data, allMechanics, onSubmit }: Props)
                       <select
                         name="status"
                         defaultValue={job.job_status}
-                        className="w-32 rounded-md border border-gray-300 bg-white p-1.5 text-xs text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        className="w-32 rounded-md border border-gray-300 bg-white p-1.5 text-xs text-black focus:outline-none focus:ring-1 focus:ring-blue-500"
                       >
                         <option value="Pending">Pending</option>
                         <option value="In Progress">In Progress</option>
@@ -121,7 +121,7 @@ export default function ActiveJobsTable({ data, allMechanics, onSubmit }: Props)
               ))
             ) : (
               <tr>
-                <td colSpan={6} className="px-4 py-12 text-center text-gray-500">
+                <td colSpan={6} className="px-4 py-12 text-center text-black">
                   No active maintenance jobs found.
                 </td>
               </tr>

@@ -37,7 +37,7 @@ export default function AvailableMechanicsTable({ data }: Props) {
 
       <div className="overflow-x-auto">
         <table className="w-full text-left text-sm">
-          <thead className="border-b bg-gray-50 text-gray-600">
+          <thead className="border-b bg-gray-50 text-gray-900">
             <tr>
               <th className="px-4 py-3">Mechanic ID</th>
               <th className="px-4 py-3">Full Name</th>
@@ -49,9 +49,9 @@ export default function AvailableMechanicsTable({ data }: Props) {
             {paginatedData.length > 0 ? (
               paginatedData.map((mech) => (
                 <tr key={mech.mechanic_id} className="border-b hover:bg-gray-50">
-                  <td className="px-4 py-3 font-medium text-gray-800">{mech.mechanic_id}</td>
-                  <td className="px-4 py-3 text-gray-700">{mech.full_name}</td>
-                  <td className="px-4 py-3 font-medium text-gray-600">{mech.depot_name || "N/A"}</td>
+                  <td className="px-4 py-3 font-medium text-black">{mech.mechanic_id}</td>
+                  <td className="px-4 py-3 text-black">{mech.full_name}</td>
+                  <td className="px-4 py-3 font-medium text-gray-900">{mech.depot_name || "N/A"}</td>
                   <td className="px-4 py-3">
                     <span className="rounded-md border border-green-200 bg-green-100 px-2 py-1 text-xs font-medium text-green-700">
                       Ready for Assignment
@@ -61,7 +61,7 @@ export default function AvailableMechanicsTable({ data }: Props) {
               ))
             ) : (
               <tr>
-                <td colSpan={4} className="px-4 py-8 text-center text-gray-500">
+                <td colSpan={4} className="px-4 py-8 text-center text-black">
                   All mechanics are currently busy.
                 </td>
               </tr>

@@ -34,17 +34,17 @@ export default function PredictiveAlertsTable({ data }: Props) {
   return (
     <div className="mb-8 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
       <div className="flex items-center justify-between border-b bg-gray-50 p-4">
-        <h3 className="flex items-center gap-2 font-semibold text-gray-800">
+        <h3 className="flex items-center gap-2 font-semibold text-black">
           <AlertTriangle className="h-5 w-5 text-red-500" /> Component Health Alerts
         </h3>
-        <span className="rounded-full border bg-white px-3 py-1 text-xs font-medium text-gray-600">
+        <span className="rounded-full border bg-white px-3 py-1 text-xs font-medium text-gray-900">
           {data?.length || 0} found
         </span>
       </div>
 
       <div className="overflow-x-auto max-h-96">
         <table className="w-full text-left text-sm">
-          <thead className="sticky top-0 bg-gray-50 text-gray-600">
+          <thead className="sticky top-0 bg-gray-50 text-gray-900">
             <tr>
               <th className="px-4 py-3 font-medium">Timestamp</th>
               <th className="px-4 py-3 font-medium">Vehicle ID</th>
@@ -57,18 +57,18 @@ export default function PredictiveAlertsTable({ data }: Props) {
             {paginatedData.length > 0 ? (
               paginatedData.map((a, idx) => (
                 <tr key={`${a.vehicle_id || "vehicle"}-${idx}`} className="border-b hover:bg-gray-50">
-                  <td className="px-4 py-3 text-gray-600">
+                  <td className="px-4 py-3 text-gray-900">
                     {a.timestamp ? new Date(a.timestamp).toLocaleString("vi-VN") : "N/A"}
                   </td>
-                  <td className="px-4 py-3 font-medium text-gray-800">{a.vehicle_id}</td>
+                  <td className="px-4 py-3 font-medium text-black">{a.vehicle_id}</td>
                   <td className="px-4 py-3 font-medium text-blue-700">{a.alert_type || "Unknown Code"}</td>
                   <td className="px-4 py-3 font-medium text-amber-600">{a.severity}</td>
-                  <td className="px-4 py-3 text-gray-600">{a.description}</td>
+                  <td className="px-4 py-3 text-gray-900">{a.description}</td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan={5} className="px-4 py-12 text-center text-gray-500">
+                <td colSpan={5} className="px-4 py-12 text-center text-black">
                   No alerts found matching your filters.
                 </td>
               </tr>

@@ -59,7 +59,7 @@ export default function DriverUpcomingMaintenanceTable({
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="text-left text-gray-500">
+            <tr className="text-left text-black">
               <th className="pb-2">Job</th>
               <th className="pb-2">Vehicle</th>
               <th className="pb-2">Register No.</th>

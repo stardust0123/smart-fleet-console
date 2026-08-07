@@ -48,7 +48,7 @@ export default function InventoryAlertsTable({ lowStockParts, supplierPerformanc
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm text-left">
-            <thead className="bg-gray-50 text-gray-600 font-medium border-b">
+            <thead className="bg-gray-50 text-gray-900 font-medium border-b">
               <tr>
                 <th className="px-4 py-3">Part Name</th>
                 <th className="px-4 py-3 text-right">Current Qty</th>
@@ -60,9 +60,9 @@ export default function InventoryAlertsTable({ lowStockParts, supplierPerformanc
               {paginatedLowStockParts.length > 0 ? (
                 paginatedLowStockParts.map((part, idx) => (
                   <tr key={idx} className="hover:bg-gray-50 transition-colors">
-                    <td className="px-4 py-3 font-medium text-gray-800">{part.part_name}</td>
+                    <td className="px-4 py-3 font-medium text-black">{part.part_name}</td>
                     <td className="px-4 py-3 text-right font-bold text-red-600">{part.quantity}</td>
-                    <td className="px-4 py-3 text-right text-gray-500">{part.re_order_threshold}</td>
+                    <td className="px-4 py-3 text-right text-black">{part.re_order_threshold}</td>
                     <td className="px-4 py-3 text-center">
                       <span className="px-2 py-1 bg-red-100 text-red-700 text-xs rounded-md font-medium">Reorder Needed</span>
                     </td>
@@ -70,7 +70,7 @@ export default function InventoryAlertsTable({ lowStockParts, supplierPerformanc
                 ))
               ) : (
                 <tr>
-                  <td colSpan={4} className="px-4 py-8 text-center text-gray-500">Inventory levels are optimal.</td>
+                  <td colSpan={4} className="px-4 py-8 text-center text-black">Inventory levels are optimal.</td>
                 </tr>
               )}
             </tbody>
@@ -90,12 +90,12 @@ export default function InventoryAlertsTable({ lowStockParts, supplierPerformanc
       {/* Supplier Performance Section */}
       <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
         <div className="p-4 border-b border-gray-100">
-          <h3 className="text-lg font-semibold text-gray-800">Supplier Price Deviations</h3>
-          <p className="text-sm text-gray-500">Primary vs Backup suppliers[cite: 1]</p>
+          <h3 className="text-lg font-semibold text-black">Supplier Price Deviations</h3>
+          <p className="text-sm text-black">Primary vs Backup suppliers[cite: 1]</p>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm text-left">
-            <thead className="bg-gray-50 text-gray-600 font-medium border-b">
+            <thead className="bg-gray-50 text-gray-900 font-medium border-b">
               <tr>
                 <th className="px-4 py-3">Part No.</th>
                 <th className="px-4 py-3 text-right">Primary Price</th>
@@ -106,11 +106,11 @@ export default function InventoryAlertsTable({ lowStockParts, supplierPerformanc
             <tbody className="divide-y divide-gray-100">
               {paginatedSupplierPerformance.map((perf, idx) => (
                 <tr key={idx} className="hover:bg-gray-50 transition-colors">
-                  <td className="px-4 py-3 font-medium text-gray-800">{perf.part_number_1}</td>
-                  <td className="px-4 py-3 text-right text-gray-600">
+                  <td className="px-4 py-3 font-medium text-black">{perf.part_number_1}</td>
+                  <td className="px-4 py-3 text-right text-gray-900">
                     {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(perf.unit_price_1)}
                   </td>
-                  <td className="px-4 py-3 text-right text-gray-600">
+                  <td className="px-4 py-3 text-right text-gray-900">
                     {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(perf.unit_price_2)}
                   </td>
                   <td className={`px-4 py-3 text-right font-medium ${Number(perf.percentage_diff) > 0 ? 'text-green-600' : 'text-red-600'}`}>

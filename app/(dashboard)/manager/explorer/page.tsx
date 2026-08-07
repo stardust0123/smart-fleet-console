@@ -58,7 +58,7 @@ export default async function WorkshopExplorerPage({
         <form action="/manager/explorer" method="GET" className="grid grid-cols-1 md:grid-cols-6 gap-4">
           
           <div className="flex flex-col gap-1">
-            <label className="text-xs font-medium text-gray-700">Vehicle</label>
+            <label className="text-xs font-medium text-black">Vehicle</label>
             <input
               type="text"
               name="vehicle_id"
@@ -69,7 +69,7 @@ export default async function WorkshopExplorerPage({
           </div>
 
           <div className="flex flex-col gap-1">
-            <label className="text-xs font-medium text-gray-700">Mechanic ID</label>
+            <label className="text-xs font-medium text-black">Mechanic ID</label>
             <input
               type="text"
               name="mechanic_id"
@@ -80,7 +80,7 @@ export default async function WorkshopExplorerPage({
           </div>
 
           <div className="flex flex-col gap-1">
-            <label className="text-xs font-medium text-gray-700">Alert Type</label>
+            <label className="text-xs font-medium text-black">Alert Type</label>
             <select name="alert_type" defaultValue={alert_type} className="p-2 border border-gray-300 rounded-md bg-white text-sm">
               <option value="">All Alerts</option>
               {alertTypesDB?.map((type: any, idx: number) => (
@@ -92,12 +92,12 @@ export default async function WorkshopExplorerPage({
           </div>
 
           <div className="flex flex-col gap-1">
-            <label className="text-xs font-medium text-gray-700">Cert. expiry in (days)</label>
+            <label className="text-xs font-medium text-black">Cert. expiry in (days)</label>
             <input type="number" min="1" step="1" name="certificateDays" defaultValue={certificateDays} className="w-full p-2 border border-gray-300 rounded-md bg-white text-sm" />
           </div>
 
           <div className="flex flex-col gap-1">
-            <label className="text-xs font-medium text-gray-700">Start Date From</label>
+            <label className="text-xs font-medium text-black">Start Date From</label>
             <input type="date" name="startDate" defaultValue={startDate} className="w-full p-2 border border-gray-300 rounded-md bg-white text-sm" />
           </div>
 
@@ -105,7 +105,7 @@ export default async function WorkshopExplorerPage({
             <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-md font-medium text-sm transition-colors">
               Apply Filters
             </button>
-            <a href="/manager/explorer" className="w-full text-center border border-gray-300 bg-white text-gray-700 p-2 rounded-md font-medium text-sm hover:bg-gray-50 transition-colors">
+            <a href="/manager/explorer" className="w-full text-center border border-gray-300 bg-white text-black p-2 rounded-md font-medium text-sm hover:bg-gray-50 transition-colors">
               Clear
             </a>
           </div>
@@ -115,15 +115,15 @@ export default async function WorkshopExplorerPage({
       <div className="bg-white p-6 rounded-xl border border-amber-200 shadow-sm mb-8">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h2 className="text-lg font-semibold text-gray-800">Mechanic Certificates Expiring Soon</h2>
-            <p className="text-sm text-gray-500">Showing certificates that expire within {certificateDays} days.</p>
+            <h2 className="text-lg font-semibold text-black">Mechanic Certificates Expiring Soon</h2>
+            <p className="text-sm text-black">Showing certificates that expire within {certificateDays} days.</p>
           </div>
         </div>
 
         {expiringCertificates && expiringCertificates.length > 0 ? (
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-left">
-              <thead className="bg-amber-50 text-gray-700 border-b border-amber-100">
+              <thead className="bg-amber-50 text-black border-b border-amber-100">
                 <tr>
                   <th className="px-4 py-3">Mechanic ID</th>
                   <th className="px-4 py-3">Full Name</th>
@@ -135,10 +135,10 @@ export default async function WorkshopExplorerPage({
               <tbody className="divide-y divide-gray-100">
                 {expiringCertificates.map((item: any, idx: number) => (
                   <tr key={idx} className="hover:bg-amber-50/50">
-                    <td className="px-4 py-3 font-medium text-gray-800">{item.mechanic_id}</td>
-                    <td className="px-4 py-3 text-gray-700">{item.full_name}</td>
-                    <td className="px-4 py-3 text-gray-700">{item.certification_code}</td>
-                    <td className="px-4 py-3 text-gray-700">{item.expire_date ? new Date(item.expire_date).toLocaleDateString("en-GB") : "N/A"}</td>
+                    <td className="px-4 py-3 font-medium text-black">{item.mechanic_id}</td>
+                    <td className="px-4 py-3 text-black">{item.full_name}</td>
+                    <td className="px-4 py-3 text-black">{item.certification_code}</td>
+                    <td className="px-4 py-3 text-black">{item.expire_date ? new Date(item.expire_date).toLocaleDateString("en-GB") : "N/A"}</td>
                     <td className={`px-4 py-3 font-semibold ${Number(item.days_remaining) <= 7 ? "text-red-600" : "text-amber-600"}`}>
                       {item.days_remaining}
                     </td>
@@ -148,7 +148,7 @@ export default async function WorkshopExplorerPage({
             </table>
           </div>
         ) : (
-          <p className="text-sm text-gray-500">No certificates expiring soon.</p>
+          <p className="text-sm text-black">No certificates expiring soon.</p>
         )}
       </div>
 

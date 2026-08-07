@@ -188,7 +188,7 @@ export default function DriverHistoryTabs({
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="text-left text-gray-500">
+                <tr className="text-left text-black">
                   <th className="pb-2">Driver</th>
                   <th className="pb-2">Vehicle</th>
                   <th className="pb-2">Register No.</th>
@@ -220,7 +220,7 @@ export default function DriverHistoryTabs({
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="text-left text-gray-500">
+                <tr className="text-left text-black">
                   <th className="pb-2">Job</th>
                   <th className="pb-2">Vehicle</th>
                   <th className="pb-2">Register No.</th>
@@ -280,7 +280,7 @@ export default function DriverHistoryTabs({
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="text-left text-gray-500">
+                  <tr className="text-left text-black">
                     <th className="pb-2">Type</th>
                     <th className="pb-2">Start</th>
                     <th className="pb-2">End</th>
@@ -338,7 +338,7 @@ export default function DriverHistoryTabs({
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="text-left text-gray-500">
+                  <tr className="text-left text-black">
                     <th className="pb-2">Date</th>
                     <th className="pb-2">Event</th>
                     <th className="pb-2">Severity</th>

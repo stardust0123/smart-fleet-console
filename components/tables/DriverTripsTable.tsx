@@ -57,7 +57,7 @@ export default function DriverTripsTable({
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="text-left text-gray-500">
+              <tr className="text-left text-black">
                 <th className="pb-2">Driver</th>
                 <th className="pb-2">Vehicle</th>
                 <th className="pb-2">Register No.</th>
@@ -92,7 +92,7 @@ export default function DriverTripsTable({
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="text-left text-gray-500">
+                <tr className="text-left text-black">
                   <th className="pb-2">Date</th>
                   <th className="pb-2">Event</th>
                   <th className="pb-2">Severity</th>
